@@ -328,6 +328,9 @@ export default function Cotacoes() {
     setOpenSnackbar(true);
   };
 
+  /*  */
+  const [produtoFilter, setProdutoFilter] = React.useState("");
+
   return (
     <AdministrativePanel>
       <Stack direction="column" spacing={4}>
@@ -338,6 +341,26 @@ export default function Cotacoes() {
           }}
         >
           <Create onClick={() => setFormMode("create")} />
+        </Box>
+
+        <Box component="div">
+          <FormControl margin="dense" fullWidth variant="standard">
+            <InputLabel id="produto-filter-label">Produto</InputLabel>
+            <Select
+              labelId="produto-filter-label"
+              id="produto-filter"
+              value={produtoFilter}
+              label="Produto"
+              onChange={(event) => setProdutoFilter(event.target.value)}
+            >
+              <MenuItem value="">All</MenuItem>
+              {produtos.map((produto) => (
+                <MenuItem key={produto.id} value={produto.id}>
+                  {produto.nome}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </Box>
 
         {isSearchingAnimation ? (
@@ -361,11 +384,21 @@ export default function Cotacoes() {
                   </TableHead>
                   <TableBody>
                     {(rowsPerPage > 0
-                      ? cotacoes.slice(
-                          page * rowsPerPage,
-                          page * rowsPerPage + rowsPerPage
+                      ? cotacoes
+                          .filter((cotacao) =>
+                            produtoFilter
+                              ? cotacao.produtoId === produtoFilter
+                              : true
+                          )
+                          .slice(
+                            page * rowsPerPage,
+                            page * rowsPerPage + rowsPerPage
+                          )
+                      : cotacoes.filter((cotacao) =>
+                          produtoFilter
+                            ? cotacao.produtoId === produtoFilter
+                            : true
                         )
-                      : cotacoes
                     ).map((cotacao) => (
                       <StyledTableRow key={cotacao.id}>
                         <StyledTableCell component="th" scope="row">
