@@ -579,7 +579,12 @@ export default function Produtos() {
                     ))}
                   </Select>
                 </FormControl>
-                <IconButton onClick={handleAddFP} disabled={isFPAddAnimation}>
+                <IconButton
+                  edge="end"
+                  aria-label="to add"
+                  onClick={handleAddFP}
+                  disabled={isFPAddAnimation}
+                >
                   {isFPAddAnimation ? (
                     <CircularIndeterminate size={25} />
                   ) : (
