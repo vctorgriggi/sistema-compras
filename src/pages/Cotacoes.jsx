@@ -46,10 +46,12 @@ import Save from "../components/button/Save";
 import Cancel from "../components/button/Cancel";
 import FeedbackSnackbar from "../components/FeedbackSnackbar";
 import CircularIndeterminate from "../components/CircularIndeterminate";
-import { get as getFornecedor } from "../services/fornecedorService";
-import { get as getProduto } from "../services/produtoService";
+import { get as getFornecedores } from "../services/fornecedorService";
+import { get as getProdutos } from "../services/produtoService";
 
-/*  */
+/**
+ *
+ */
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.primary.main,
@@ -95,19 +97,22 @@ export default function Cotacoes() {
     find();
   }, []);
 
+  /**
+   *
+   */
   const [fornecedores, setFornecedores] = React.useState([]);
   const [
     isFornecedoresSearchingAnimation,
     setIsFornecedoresSearchingAnimation,
   ] = React.useState(false);
 
-  async function findFornecedor() {
+  async function findFornecedores() {
     try {
       setIsFornecedoresSearchingAnimation(true);
-      const data = await getFornecedor();
+      const data = await getFornecedores();
       setFornecedores(data);
     } catch (error) {
-      console.error(`error on findFornecedor: ${error.message}`);
+      console.error(`error while fetching fornecedores: ${error.message}`);
       handleOpenSnackbar({
         severity: "error",
         message: error.message,
@@ -118,20 +123,23 @@ export default function Cotacoes() {
   }
 
   React.useEffect(() => {
-    findFornecedor();
+    findFornecedores();
   }, []);
 
+  /**
+   *
+   */
   const [produtos, setProdutos] = React.useState([]);
   const [isProdutosSearchingAnimation, setIsProdutosSearchingAnimation] =
     React.useState(false);
 
-  async function findProduto() {
+  async function findProdutos() {
     try {
       setIsProdutosSearchingAnimation(true);
-      const data = await getProduto();
+      const data = await getProdutos();
       setProdutos(data);
     } catch (error) {
-      console.error(`error on findProduto: ${error.message}`);
+      console.error(`error while fetching produtos: ${error.message}`);
       handleOpenSnackbar({
         severity: "error",
         message: error.message,
@@ -142,10 +150,12 @@ export default function Cotacoes() {
   }
 
   React.useEffect(() => {
-    findProduto();
+    findProdutos();
   }, []);
 
-  /*  */
+  /**
+   *
+   */
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -162,7 +172,9 @@ export default function Cotacoes() {
     setPage(0);
   };
 
-  /*  */
+  /**
+   *
+   */
   const fnsDate = (date) => {
     const utcDate = new Date(date);
     utcDate.setMinutes(utcDate.getMinutes() + utcDate.getTimezoneOffset());
@@ -176,7 +188,9 @@ export default function Cotacoes() {
     });
   };
 
-  /*  */
+  /**
+   *
+   */
   const [isDeleting, setIsDeleting] = React.useState(false);
   const [isDeletingAnimation, setIsDeletingAnimation] = React.useState(false);
 
@@ -213,7 +227,9 @@ export default function Cotacoes() {
     }
   };
 
-  /*  */
+  /**
+   *
+   */
   const [formData, setFormData] = React.useState({
     validade: null,
     quantidade: "",
@@ -231,7 +247,9 @@ export default function Cotacoes() {
     setFormData({ ...formData, validade: event });
   };
 
-  /*  */
+  /**
+   *
+   */
   const [formMode, setFormMode] = React.useState(null);
 
   const handleSubmit = async (event) => {
@@ -256,7 +274,9 @@ export default function Cotacoes() {
     setSelectedCotacao(null);
   };
 
-  /*  */
+  /**
+   *
+   */
   const [isCreatingAnimation, setIsCreatingAnimation] = React.useState(false);
 
   const handleCreate = async () => {
@@ -280,7 +300,9 @@ export default function Cotacoes() {
     }
   };
 
-  /*  */
+  /**
+   *
+   */
   const [isUpdatingAnimation, setIsUpdatingAnimation] = React.useState(false);
 
   const showUpdate = (cotacao) => {
@@ -318,7 +340,9 @@ export default function Cotacoes() {
     }
   };
 
-  /*  */
+  /**
+   *
+   */
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [severitySnackbar, setSeveritySnackbar] = React.useState("warning");
   const [messageSnackbar, setMessageSnackbar] = React.useState("");
@@ -328,11 +352,16 @@ export default function Cotacoes() {
     setOpenSnackbar(true);
   };
 
-  /*  */
+  /**
+   *
+   */
   const [produtoFilter, setProdutoFilter] = React.useState("");
 
   return (
     <AdministrativePanel>
+      {/**
+       *
+       */}
       <Stack direction="column" spacing={4}>
         <Box
           component="div"
@@ -342,7 +371,6 @@ export default function Cotacoes() {
         >
           <Create onClick={() => setFormMode("create")} />
         </Box>
-
         <Box component="div">
           <FormControl margin="dense" fullWidth variant="standard">
             <InputLabel id="produto-filter-label">Produto</InputLabel>
@@ -362,7 +390,6 @@ export default function Cotacoes() {
             </Select>
           </FormControl>
         </Box>
-
         {isSearchingAnimation ? (
           <CircularIndeterminate />
         ) : (
@@ -475,6 +502,9 @@ export default function Cotacoes() {
         )}
       </Stack>
 
+      {/**
+       *
+       */}
       <DeleteDialog
         open={isDeleting}
         onCancel={hideDelete}
@@ -482,6 +512,9 @@ export default function Cotacoes() {
         isDeletingAnimation={isDeletingAnimation}
       />
 
+      {/**
+       *
+       */}
       <Dialog open={formMode !== null} onClose={hideForm}>
         <Box
           component="form"
@@ -499,7 +532,6 @@ export default function Cotacoes() {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </DialogContentText>
-
             <LocalizationProvider
               dateAdapter={AdapterDayjs}
               adapterLocale="pt-br"
@@ -517,7 +549,6 @@ export default function Cotacoes() {
                 }}
               />
             </LocalizationProvider>
-
             <TextField
               required
               margin="dense"
@@ -530,7 +561,6 @@ export default function Cotacoes() {
               value={formData.quantidade}
               onChange={handleInputChange}
             />
-
             <TextField
               required
               margin="dense"
@@ -543,12 +573,10 @@ export default function Cotacoes() {
               value={formData.valor}
               onChange={handleInputChange}
             />
-
             <Typography variant="caption" color="text.secondary" gutterBottom>
               Caso necessário, utilize o ponto (.) para separar as casas
               decimais ao informar valores.
             </Typography>
-
             <FormControl required margin="dense" fullWidth variant="standard">
               <InputLabel id="demo-simple-select-label">Fornecedor</InputLabel>
               <Select
@@ -567,7 +595,6 @@ export default function Cotacoes() {
                 ))}
               </Select>
             </FormControl>
-
             <FormControl required margin="dense" fullWidth variant="standard">
               <InputLabel id="demo-simple-select-label">Produto</InputLabel>
               <Select
@@ -598,6 +625,9 @@ export default function Cotacoes() {
         </Box>
       </Dialog>
 
+      {/**
+       *
+       */}
       <FeedbackSnackbar
         open={openSnackbar}
         severity={severitySnackbar}

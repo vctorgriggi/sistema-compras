@@ -23,6 +23,9 @@ const defaultTheme = createTheme();
 export default function SignUp() {
   const [isLoadingAnimation, setIsLoadingAnimation] = React.useState(false);
 
+  /**
+   *
+   */
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [severitySnackbar, setSeveritySnackbar] = React.useState("warning");
   const [messageSnackbar, setMessageSnackbar] = React.useState("");
@@ -32,6 +35,9 @@ export default function SignUp() {
     setOpenSnackbar(true);
   };
 
+  /**
+   *
+   */
   const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -146,8 +152,14 @@ export default function SignUp() {
           </Box>
         </Box>
 
+        {/**
+         *
+         */}
         <Copyright sx={{ mt: 5 }} />
 
+        {/**
+         *
+         */}
         <FeedbackSnackbar
           open={openSnackbar}
           severity={severitySnackbar}

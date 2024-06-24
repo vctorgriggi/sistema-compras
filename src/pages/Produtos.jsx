@@ -39,13 +39,12 @@ import Save from "../components/button/Save";
 import Cancel from "../components/button/Cancel";
 import FeedbackSnackbar from "../components/FeedbackSnackbar";
 import CircularIndeterminate from "../components/CircularIndeterminate";
-import { get as getCProduto } from "../services/categoriaDeProdutoService";
-import { get as getFornecedor } from "../services/fornecedorService";
+import { get as getCProdutos } from "../services/categoriaDeProdutoService";
+import { get as getFornecedores } from "../services/fornecedorService";
 import {
   add as addProductToSupplier,
   remove as removeProductFromSupplier,
 } from "../services/fornecedorProdutoService";
-import { Icon } from "@mui/material";
 
 export default function Produtos() {
   const [produtos, setProdutos] = React.useState([]);
@@ -72,19 +71,22 @@ export default function Produtos() {
     find();
   }, []);
 
+  /**
+   *
+   */
   const [fornecedores, setFornecedores] = React.useState([]);
   const [
     isFornecedoresSearchingAnimation,
     setIsFornecedoresSearchingAnimation,
   ] = React.useState(false);
 
-  async function findFornecedor() {
+  async function findFornecedores() {
     try {
       setIsFornecedoresSearchingAnimation(true);
-      const data = await getFornecedor();
+      const data = await getFornecedores();
       setFornecedores(data);
     } catch (error) {
-      console.error(`error on findFornecedor: ${error.message}`);
+      console.error(`error while fetching fornecedores: ${error.message}`);
       handleOpenSnackbar({
         severity: "error",
         message: error.message,
@@ -95,20 +97,25 @@ export default function Produtos() {
   }
 
   React.useEffect(() => {
-    findFornecedor();
+    findFornecedores();
   }, []);
 
+  /**
+   *
+   */
   const [cProdutos, setCProdutos] = React.useState([]);
   const [isCProdutosSearchingAnimation, setIsCProdutosSearchingAnimation] =
     React.useState(false);
 
-  async function findCProduto() {
+  async function findCProdutos() {
     try {
       setIsCProdutosSearchingAnimation(true);
-      const data = await getCProduto();
+      const data = await getCProdutos();
       setCProdutos(data);
     } catch (error) {
-      console.error(`error on findCProduto: ${error.message}`);
+      console.error(
+        `error while fetching categorias de produtos: ${error.message}`
+      );
       handleOpenSnackbar({
         severity: "error",
         message: error.message,
@@ -119,10 +126,12 @@ export default function Produtos() {
   }
 
   React.useEffect(() => {
-    findCProduto();
+    findCProdutos();
   }, []);
 
-  /*  */
+  /**
+   *
+   */
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -135,7 +144,9 @@ export default function Produtos() {
     setPage(0);
   };
 
-  /*  */
+  /**
+   *
+   */
   const [isDeleting, setIsDeleting] = React.useState(false);
   const [isDeletingAnimation, setIsDeletingAnimation] = React.useState(false);
 
@@ -172,7 +183,9 @@ export default function Produtos() {
     }
   };
 
-  /*  */
+  /**
+   *
+   */
   const [formData, setFormData] = React.useState({
     nome: "",
     imagemUrl: "",
@@ -185,7 +198,9 @@ export default function Produtos() {
     setFormData({ ...formData, [name]: value });
   };
 
-  /*  */
+  /**
+   *
+   */
   const [formMode, setFormMode] = React.useState(null);
 
   const handleSubmit = async (event) => {
@@ -209,7 +224,9 @@ export default function Produtos() {
     setSelectedProduto(null);
   };
 
-  /*  */
+  /**
+   *
+   */
   const [isCreatingAnimation, setIsCreatingAnimation] = React.useState(false);
 
   const handleCreate = async () => {
@@ -233,7 +250,9 @@ export default function Produtos() {
     }
   };
 
-  /*  */
+  /**
+   *
+   */
   const [isUpdatingAnimation, setIsUpdatingAnimation] = React.useState(false);
 
   const showUpdate = (produto) => {
@@ -270,7 +289,9 @@ export default function Produtos() {
     }
   };
 
-  /*  */
+  /**
+   *
+   */
   const [isFornecedoresProdutosVisible, setIsFornecedoresProdutosVisible] =
     React.useState(false);
   const [isFPSearchingAnimation, setIsFPSearchingAnimation] =
@@ -283,7 +304,9 @@ export default function Produtos() {
       const data = await getById(produto.id);
       setSelectedProduto(data);
     } catch (error) {
-      console.error(`error on showFornecedoresProdutos: ${error.message}`);
+      console.error(
+        `error while fetching fornecedor-produto associations: ${error.message}`
+      );
       handleOpenSnackbar({
         severity: "error",
         message: error.message,
@@ -299,7 +322,9 @@ export default function Produtos() {
     setSelectedProduto(null);
   };
 
-  /*  */
+  /**
+   *
+   */
   const [isFPDeletingAnimation, setIsFPDeletingAnimation] =
     React.useState(false);
 
@@ -316,7 +341,9 @@ export default function Produtos() {
         message: "Exclusão bem-sucedida: a associação foi removida.",
       });
     } catch (error) {
-      console.error(`error on handleRemoveFP: ${error.message}`);
+      console.error(
+        `error while removing fornecedor-produto association: ${error.message}`
+      );
       handleOpenSnackbar({
         severity: "error",
         message: error.message,
@@ -326,7 +353,9 @@ export default function Produtos() {
     }
   };
 
-  /*  */
+  /**
+   *
+   */
   const [selectedFornecedor, setSelectedFornecedor] = React.useState("");
   const [isFPAddAnimation, setIsFPAddAnimation] = React.useState(false);
 
@@ -348,7 +377,9 @@ export default function Produtos() {
           "Nova associação: a solicitação foi efetuada conforme solicitado.",
       });
     } catch (error) {
-      console.error(`error on handleAddFP: ${error.message}`);
+      console.error(
+        `error while adding fornecedor-produto association: ${error.message}`
+      );
       handleOpenSnackbar({
         severity: "error",
         message: error.message,
@@ -359,7 +390,9 @@ export default function Produtos() {
     }
   };
 
-  /*  */
+  /**
+   *
+   */
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [severitySnackbar, setSeveritySnackbar] = React.useState("warning");
   const [messageSnackbar, setMessageSnackbar] = React.useState("");
@@ -371,6 +404,9 @@ export default function Produtos() {
 
   return (
     <AdministrativePanel>
+      {/**
+       *
+       */}
       <Stack direction="column" spacing={4}>
         <Box
           component="div"
@@ -380,7 +416,6 @@ export default function Produtos() {
         >
           <Create onClick={() => setFormMode("create")} />
         </Box>
-
         {isSearchingAnimation ? (
           <CircularIndeterminate />
         ) : (
@@ -434,7 +469,6 @@ export default function Produtos() {
                     }
                   />
                 ))}
-
                 <TablePagination
                   rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
                   component="div"
@@ -460,6 +494,9 @@ export default function Produtos() {
         )}
       </Stack>
 
+      {/**
+       *
+       */}
       <Dialog
         open={isFornecedoresProdutosVisible}
         onClose={hideFornecedoresProdutos}
@@ -511,7 +548,6 @@ export default function Produtos() {
               Não há fornecedores associados a este produto.
             </DialogContentText>
           )}
-
           {!isFPSearchingAnimation && (
             <Box
               component="div"
@@ -543,7 +579,6 @@ export default function Produtos() {
                     ))}
                   </Select>
                 </FormControl>
-
                 <IconButton onClick={handleAddFP} disabled={isFPAddAnimation}>
                   {isFPAddAnimation ? (
                     <CircularIndeterminate size={25} />
@@ -560,6 +595,9 @@ export default function Produtos() {
         </DialogActions>
       </Dialog>
 
+      {/**
+       *
+       */}
       <DeleteDialog
         open={isDeleting}
         onCancel={hideDelete}
@@ -567,6 +605,9 @@ export default function Produtos() {
         isDeletingAnimation={isDeletingAnimation}
       />
 
+      {/**
+       *
+       */}
       <Dialog open={formMode !== null} onClose={hideForm}>
         <Box
           component="form"
@@ -584,7 +625,6 @@ export default function Produtos() {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </DialogContentText>
-
             <TextField
               required
               margin="dense"
@@ -597,7 +637,6 @@ export default function Produtos() {
               value={formData.nome}
               onChange={handleInputChange}
             />
-
             <TextField
               margin="dense"
               id="name"
@@ -609,7 +648,6 @@ export default function Produtos() {
               value={formData.imagemUrl}
               onChange={handleInputChange}
             />
-
             <TextField
               margin="dense"
               id="name"
@@ -621,7 +659,6 @@ export default function Produtos() {
               value={formData.descricao}
               onChange={handleInputChange}
             />
-
             <FormControl required margin="dense" fullWidth variant="standard">
               <InputLabel id="demo-simple-select-label">
                 Categoria de Produto
@@ -657,6 +694,9 @@ export default function Produtos() {
         </Box>
       </Dialog>
 
+      {/**
+       *
+       */}
       <FeedbackSnackbar
         open={openSnackbar}
         severity={severitySnackbar}

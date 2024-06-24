@@ -51,7 +51,9 @@ export default function Fornecedores() {
     find();
   }, []);
 
-  /*  */
+  /**
+   *
+   */
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -64,7 +66,9 @@ export default function Fornecedores() {
     setPage(0);
   };
 
-  /*  */
+  /**
+   *
+   */
   const [isDeleting, setIsDeleting] = React.useState(false);
   const [isDeletingAnimation, setIsDeletingAnimation] = React.useState(false);
 
@@ -101,7 +105,9 @@ export default function Fornecedores() {
     }
   };
 
-  /*  */
+  /**
+   *
+   */
   const [formData, setFormData] = React.useState({
     nome: "",
     endereco: "",
@@ -115,7 +121,9 @@ export default function Fornecedores() {
     setFormData({ ...formData, [name]: value });
   };
 
-  /*  */
+  /**
+   *
+   */
   const [formMode, setFormMode] = React.useState(null);
 
   const handleSubmit = async (event) => {
@@ -140,7 +148,9 @@ export default function Fornecedores() {
     setSelectedFornecedor(null);
   };
 
-  /*  */
+  /**
+   *
+   */
   const [isCreatingAnimation, setIsCreatingAnimation] = React.useState(false);
 
   const handleCreate = async () => {
@@ -164,7 +174,9 @@ export default function Fornecedores() {
     }
   };
 
-  /*  */
+  /**
+   *
+   */
   const [isUpdatingAnimation, setIsUpdatingAnimation] = React.useState(false);
 
   const showUpdate = (fornecedor) => {
@@ -202,7 +214,9 @@ export default function Fornecedores() {
     }
   };
 
-  /*  */
+  /**
+   *
+   */
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [severitySnackbar, setSeveritySnackbar] = React.useState("warning");
   const [messageSnackbar, setMessageSnackbar] = React.useState("");
@@ -214,6 +228,9 @@ export default function Fornecedores() {
 
   return (
     <AdministrativePanel>
+      {/**
+       *
+       */}
       <Stack direction="column" spacing={4}>
         <Box
           component="div"
@@ -223,7 +240,6 @@ export default function Fornecedores() {
         >
           <Create onClick={() => setFormMode("create")} />
         </Box>
-
         {isSearchingAnimation ? (
           <CircularIndeterminate />
         ) : (
@@ -270,7 +286,6 @@ export default function Fornecedores() {
                     }
                   />
                 ))}
-
                 <TablePagination
                   rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
                   component="div"
@@ -296,6 +311,9 @@ export default function Fornecedores() {
         )}
       </Stack>
 
+      {/**
+       *
+       */}
       <DeleteDialog
         open={isDeleting}
         onCancel={hideDelete}
@@ -303,6 +321,9 @@ export default function Fornecedores() {
         isDeletingAnimation={isDeletingAnimation}
       />
 
+      {/**
+       *
+       */}
       <Dialog open={formMode !== null} onClose={hideForm}>
         <Box
           component="form"
@@ -320,7 +341,6 @@ export default function Fornecedores() {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </DialogContentText>
-
             <TextField
               required
               margin="dense"
@@ -333,7 +353,6 @@ export default function Fornecedores() {
               value={formData.nome}
               onChange={handleInputChange}
             />
-
             <TextField
               margin="dense"
               id="name"
@@ -345,7 +364,6 @@ export default function Fornecedores() {
               value={formData.endereco}
               onChange={handleInputChange}
             />
-
             <TextField
               required
               margin="dense"
@@ -358,7 +376,6 @@ export default function Fornecedores() {
               value={formData.telefone}
               onChange={handleInputChange}
             />
-
             <TextField
               margin="dense"
               id="name"
@@ -370,7 +387,6 @@ export default function Fornecedores() {
               value={formData.email}
               onChange={handleInputChange}
             />
-
             <TextField
               margin="dense"
               id="name"
@@ -394,6 +410,9 @@ export default function Fornecedores() {
         </Box>
       </Dialog>
 
+      {/**
+       *
+       */}
       <FeedbackSnackbar
         open={openSnackbar}
         severity={severitySnackbar}

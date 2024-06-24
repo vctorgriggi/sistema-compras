@@ -51,7 +51,9 @@ export default function CategoriasDeProdutos() {
     find();
   }, []);
 
-  /*  */
+  /**
+   *
+   */
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -64,7 +66,9 @@ export default function CategoriasDeProdutos() {
     setPage(0);
   };
 
-  /*  */
+  /**
+   *
+   */
   const [isDeleting, setIsDeleting] = React.useState(false);
   const [isDeletingAnimation, setIsDeletingAnimation] = React.useState(false);
 
@@ -101,7 +105,9 @@ export default function CategoriasDeProdutos() {
     }
   };
 
-  /*  */
+  /**
+   *
+   */
   const [formData, setFormData] = React.useState({
     nome: "",
     imagemUrl: "",
@@ -112,7 +118,9 @@ export default function CategoriasDeProdutos() {
     setFormData({ ...formData, [name]: value });
   };
 
-  /*  */
+  /**
+   *
+   */
   const [formMode, setFormMode] = React.useState(null);
 
   const handleSubmit = async (event) => {
@@ -134,7 +142,9 @@ export default function CategoriasDeProdutos() {
     setSelectedCProduto(null);
   };
 
-  /*  */
+  /**
+   *
+   */
   const [isCreatingAnimation, setIsCreatingAnimation] = React.useState(false);
 
   const handleCreate = async () => {
@@ -158,7 +168,9 @@ export default function CategoriasDeProdutos() {
     }
   };
 
-  /*  */
+  /**
+   *
+   */
   const [isUpdatingAnimation, setIsUpdatingAnimation] = React.useState(false);
 
   const showUpdate = (cProduto) => {
@@ -193,7 +205,9 @@ export default function CategoriasDeProdutos() {
     }
   };
 
-  /*  */
+  /**
+   *
+   */
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [severitySnackbar, setSeveritySnackbar] = React.useState("warning");
   const [messageSnackbar, setMessageSnackbar] = React.useState("");
@@ -205,6 +219,9 @@ export default function CategoriasDeProdutos() {
 
   return (
     <AdministrativePanel>
+      {/**
+       *
+       */}
       <Stack direction="column" spacing={4}>
         <Box
           component="div"
@@ -214,7 +231,6 @@ export default function CategoriasDeProdutos() {
         >
           <Create onClick={() => setFormMode("create")} />
         </Box>
-
         {isSearchingAnimation ? (
           <CircularIndeterminate />
         ) : (
@@ -255,7 +271,6 @@ export default function CategoriasDeProdutos() {
                     }
                   />
                 ))}
-
                 <TablePagination
                   rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
                   component="div"
@@ -281,6 +296,9 @@ export default function CategoriasDeProdutos() {
         )}
       </Stack>
 
+      {/**
+       *
+       */}
       <DeleteDialog
         open={isDeleting}
         onCancel={hideDelete}
@@ -288,6 +306,9 @@ export default function CategoriasDeProdutos() {
         isDeletingAnimation={isDeletingAnimation}
       />
 
+      {/**
+       *
+       */}
       <Dialog open={formMode !== null} onClose={hideForm}>
         <Box
           component="form"
@@ -305,7 +326,6 @@ export default function CategoriasDeProdutos() {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </DialogContentText>
-
             <TextField
               required
               margin="dense"
@@ -318,7 +338,6 @@ export default function CategoriasDeProdutos() {
               value={formData.nome}
               onChange={handleInputChange}
             />
-
             <TextField
               margin="dense"
               id="name"
@@ -342,6 +361,9 @@ export default function CategoriasDeProdutos() {
         </Box>
       </Dialog>
 
+      {/**
+       *
+       */}
       <FeedbackSnackbar
         open={openSnackbar}
         severity={severitySnackbar}

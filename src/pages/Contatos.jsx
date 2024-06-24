@@ -29,7 +29,7 @@ import Save from "../components/button/Save";
 import Cancel from "../components/button/Cancel";
 import FeedbackSnackbar from "../components/FeedbackSnackbar";
 import CircularIndeterminate from "../components/CircularIndeterminate";
-import { get as getFornecedor } from "../services/fornecedorService";
+import { get as getFornecedores } from "../services/fornecedorService";
 
 export default function Contatos() {
   const [contatos, setContatos] = React.useState([]);
@@ -56,17 +56,20 @@ export default function Contatos() {
     find();
   }, []);
 
+  /**
+   *
+   */
   const [fornecedores, setFornecedores] = React.useState([]);
   const [isFornecedorSearchingAnimation, setIsFornecedorSearchingAnimation] =
     React.useState(false);
 
-  async function findFornecedor() {
+  async function findFornecedores() {
     try {
       setIsFornecedorSearchingAnimation(true);
-      const data = await getFornecedor();
+      const data = await getFornecedores();
       setFornecedores(data);
     } catch (error) {
-      console.error(`error on findFornecedor: ${error.message}`);
+      console.error(`error while fetching fornecedores: ${error.message}`);
       handleOpenSnackbar({
         severity: "error",
         message: error.message,
@@ -77,10 +80,12 @@ export default function Contatos() {
   }
 
   React.useEffect(() => {
-    findFornecedor();
+    findFornecedores();
   }, []);
 
-  /*  */
+  /**
+   *
+   */
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -93,7 +98,9 @@ export default function Contatos() {
     setPage(0);
   };
 
-  /*  */
+  /**
+   *
+   */
   const [isDeleting, setIsDeleting] = React.useState(false);
   const [isDeletingAnimation, setIsDeletingAnimation] = React.useState(false);
 
@@ -130,7 +137,9 @@ export default function Contatos() {
     }
   };
 
-  /*  */
+  /**
+   *
+   */
   const [formData, setFormData] = React.useState({
     nome: "",
     telefone: "",
@@ -144,7 +153,9 @@ export default function Contatos() {
     setFormData({ ...formData, [name]: value });
   };
 
-  /*  */
+  /**
+   *
+   */
   const [formMode, setFormMode] = React.useState(null);
 
   const handleSubmit = async (event) => {
@@ -169,7 +180,9 @@ export default function Contatos() {
     setSelectedContato(null);
   };
 
-  /*  */
+  /**
+   *
+   */
   const [isCreatingAnimation, setIsCreatingAnimation] = React.useState(false);
 
   const handleCreate = async () => {
@@ -193,7 +206,9 @@ export default function Contatos() {
     }
   };
 
-  /*  */
+  /**
+   *
+   */
   const [isUpdatingAnimation, setIsUpdatingAnimation] = React.useState(false);
 
   const showUpdate = (contato) => {
@@ -231,7 +246,9 @@ export default function Contatos() {
     }
   };
 
-  /*  */
+  /**
+   *
+   */
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [severitySnackbar, setSeveritySnackbar] = React.useState("warning");
   const [messageSnackbar, setMessageSnackbar] = React.useState("");
@@ -243,6 +260,9 @@ export default function Contatos() {
 
   return (
     <AdministrativePanel>
+      {/**
+       *
+       */}
       <Stack direction="column" spacing={4}>
         <Box
           component="div"
@@ -252,7 +272,6 @@ export default function Contatos() {
         >
           <Create onClick={() => setFormMode("create")} />
         </Box>
-
         {isSearchingAnimation ? (
           <CircularIndeterminate />
         ) : (
@@ -299,7 +318,6 @@ export default function Contatos() {
                     }
                   />
                 ))}
-
                 <TablePagination
                   rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
                   component="div"
@@ -325,6 +343,9 @@ export default function Contatos() {
         )}
       </Stack>
 
+      {/**
+       *
+       */}
       <DeleteDialog
         open={isDeleting}
         onCancel={hideDelete}
@@ -332,6 +353,9 @@ export default function Contatos() {
         isDeletingAnimation={isDeletingAnimation}
       />
 
+      {/**
+       *
+       */}
       <Dialog open={formMode !== null} onClose={hideForm}>
         <Box
           component="form"
@@ -349,7 +373,6 @@ export default function Contatos() {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </DialogContentText>
-
             <TextField
               required
               margin="dense"
@@ -362,7 +385,6 @@ export default function Contatos() {
               value={formData.nome}
               onChange={handleInputChange}
             />
-
             <TextField
               required
               margin="dense"
@@ -375,7 +397,6 @@ export default function Contatos() {
               value={formData.telefone}
               onChange={handleInputChange}
             />
-
             <TextField
               margin="dense"
               id="name"
@@ -387,7 +408,6 @@ export default function Contatos() {
               value={formData.email}
               onChange={handleInputChange}
             />
-
             <TextField
               margin="dense"
               id="name"
@@ -399,7 +419,6 @@ export default function Contatos() {
               value={formData.cargo}
               onChange={handleInputChange}
             />
-
             <FormControl required margin="dense" fullWidth variant="standard">
               <InputLabel id="demo-simple-select-label">Fornecedor</InputLabel>
               <Select
@@ -430,6 +449,9 @@ export default function Contatos() {
         </Box>
       </Dialog>
 
+      {/**
+       *
+       */}
       <FeedbackSnackbar
         open={openSnackbar}
         severity={severitySnackbar}
