@@ -5,7 +5,7 @@ const serviceUrl = "/fp/produto-id";
 export async function add(produtoId, fornecedorId) {
   try {
     const response = await index.post(`${serviceUrl}/${produtoId}`, {
-      data: { fornecedorId }, // data is required to send a body in a POST request
+      fornecedorId,
     });
     return response.data;
   } catch (error) {

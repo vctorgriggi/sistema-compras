@@ -22,6 +22,7 @@ import ListItemText from "@mui/material/ListItemText";
 import StoreIcon from "@mui/icons-material/Store";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
 
 import AdministrativePanel from "../layouts/AdministrativePanel";
 import {
@@ -39,7 +40,12 @@ import Cancel from "../components/button/Cancel";
 import FeedbackSnackbar from "../components/FeedbackSnackbar";
 import CircularIndeterminate from "../components/CircularIndeterminate";
 import { get as getCProduto } from "../services/categoriaDeProdutoService";
-import { remove as removeProductFromSupplier } from "../services/fornecedorProdutoService";
+import { get as getFornecedor } from "../services/fornecedorService";
+import {
+  add as addProductToSupplier,
+  remove as removeProductFromSupplier,
+} from "../services/fornecedorProdutoService";
+import { Icon } from "@mui/material";
 
 export default function Produtos() {
   const [produtos, setProdutos] = React.useState([]);
@@ -64,6 +70,32 @@ export default function Produtos() {
 
   React.useEffect(() => {
     find();
+  }, []);
+
+  const [fornecedores, setFornecedores] = React.useState([]);
+  const [
+    isFornecedoresSearchingAnimation,
+    setIsFornecedoresSearchingAnimation,
+  ] = React.useState(false);
+
+  async function findFornecedor() {
+    try {
+      setIsFornecedoresSearchingAnimation(true);
+      const data = await getFornecedor();
+      setFornecedores(data);
+    } catch (error) {
+      console.error(`error on findFornecedor: ${error.message}`);
+      handleOpenSnackbar({
+        severity: "error",
+        message: error.message,
+      });
+    } finally {
+      setIsFornecedoresSearchingAnimation(false);
+    }
+  }
+
+  React.useEffect(() => {
+    findFornecedor();
   }, []);
 
   const [cProdutos, setCProdutos] = React.useState([]);
@@ -243,8 +275,6 @@ export default function Produtos() {
     React.useState(false);
   const [isFPSearchingAnimation, setIsFPSearchingAnimation] =
     React.useState(false);
-  const [isFPDeletingAnimation, setIsFPDeletingAnimation] =
-    React.useState(false);
 
   const showFornecedoresProdutos = async (produto) => {
     try {
@@ -265,8 +295,13 @@ export default function Produtos() {
 
   const hideFornecedoresProdutos = () => {
     setIsFornecedoresProdutosVisible(false);
+    setSelectedFornecedor("");
     setSelectedProduto(null);
   };
+
+  /*  */
+  const [isFPDeletingAnimation, setIsFPDeletingAnimation] =
+    React.useState(false);
 
   const handleRemoveFP = async (fornecedorId) => {
     if (!selectedProduto) return;
@@ -288,6 +323,39 @@ export default function Produtos() {
       });
     } finally {
       setIsFPDeletingAnimation(false);
+    }
+  };
+
+  /*  */
+  const [selectedFornecedor, setSelectedFornecedor] = React.useState("");
+  const [isFPAddAnimation, setIsFPAddAnimation] = React.useState(false);
+
+  const handleFornecedorChange = (event) => {
+    setSelectedFornecedor(event.target.value);
+  };
+
+  const handleAddFP = async () => {
+    if (!selectedFornecedor || !selectedProduto) return;
+
+    try {
+      setIsFPAddAnimation(true);
+      await addProductToSupplier(selectedProduto.id, selectedFornecedor);
+      const data = await getById(selectedProduto.id);
+      setSelectedProduto(data);
+      handleOpenSnackbar({
+        severity: "success",
+        message:
+          "Nova associação: a solicitação foi efetuada conforme solicitado.",
+      });
+    } catch (error) {
+      console.error(`error on handleAddFP: ${error.message}`);
+      handleOpenSnackbar({
+        severity: "error",
+        message: error.message,
+      });
+    } finally {
+      setSelectedFornecedor("");
+      setIsFPAddAnimation(false);
     }
   };
 
@@ -412,18 +480,18 @@ export default function Produtos() {
                 <ListItem
                   key={fornecedor.id}
                   secondaryAction={
-                    isFPDeletingAnimation ? (
-                      <CircularIndeterminate size={25} />
-                    ) : (
-                      <IconButton
-                        edge="end"
-                        aria-label="delete"
-                        onClick={() => handleRemoveFP(fornecedor.id)}
-                        disabled={isFPDeletingAnimation}
-                      >
+                    <IconButton
+                      edge="end"
+                      aria-label="delete"
+                      onClick={() => handleRemoveFP(fornecedor.id)}
+                      disabled={isFPDeletingAnimation}
+                    >
+                      {isFPDeletingAnimation ? (
+                        <CircularIndeterminate size={25} />
+                      ) : (
                         <DeleteIcon />
-                      </IconButton>
-                    )
+                      )}
+                    </IconButton>
                   }
                 >
                   <ListItemAvatar>
@@ -442,6 +510,49 @@ export default function Produtos() {
             <DialogContentText>
               Não há fornecedores associados a este produto.
             </DialogContentText>
+          )}
+
+          {!isFPSearchingAnimation && (
+            <Box
+              component="div"
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                margin: "1rem 0 0",
+              }}
+            >
+              <Typography variant="subtitle1" gutterBottom>
+                Selecione um fornecedor para associar ao produto
+              </Typography>
+              <Stack direction="row" spacing={1}>
+                <FormControl margin="dense" fullWidth variant="standard">
+                  <InputLabel id="select-fornecedor-label">
+                    Fornecedor
+                  </InputLabel>
+                  <Select
+                    labelId="select-fornecedor-label"
+                    id="select-fornecedor"
+                    value={selectedFornecedor}
+                    label="Fornecedor"
+                    onChange={handleFornecedorChange}
+                  >
+                    {fornecedores.map((fornecedor) => (
+                      <MenuItem key={fornecedor.id} value={fornecedor.id}>
+                        {fornecedor.nome}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+
+                <IconButton onClick={handleAddFP} disabled={isFPAddAnimation}>
+                  {isFPAddAnimation ? (
+                    <CircularIndeterminate size={25} />
+                  ) : (
+                    <AddIcon />
+                  )}
+                </IconButton>
+              </Stack>
+            </Box>
           )}
         </DialogContent>
         <DialogActions>
