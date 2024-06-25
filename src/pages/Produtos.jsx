@@ -564,11 +564,15 @@ export default function Produtos() {
                   value={selectedFornecedor}
                   onChange={handleFornecedorChange}
                 >
-                  {fornecedores.map((fornecedor) => (
-                    <MenuItem key={fornecedor.id} value={fornecedor.id}>
-                      {fornecedor.nome}
-                    </MenuItem>
-                  ))}
+                  {isFornecedoresSearchingAnimation ? (
+                    <MenuItem disabled>Loading...</MenuItem>
+                  ) : (
+                    fornecedores.map((fornecedor) => (
+                      <MenuItem key={fornecedor.id} value={fornecedor.id}>
+                        {fornecedor.nome}
+                      </MenuItem>
+                    ))
+                  )}
                 </BasicSelect>
                 <IconButton
                   edge="end"
@@ -654,11 +658,15 @@ export default function Produtos() {
                 })
               }
             >
-              {cProdutos.map((cProduto) => (
-                <MenuItem key={cProduto.id} value={cProduto.id}>
-                  {cProduto.nome}
-                </MenuItem>
-              ))}
+              {isCProdutosSearchingAnimation ? (
+                <MenuItem disabled>Loading...</MenuItem>
+              ) : (
+                cProdutos.map((cProduto) => (
+                  <MenuItem key={cProduto.id} value={cProduto.id}>
+                    {cProduto.nome}
+                  </MenuItem>
+                ))
+              )}
             </BasicSelect>
           </DialogContent>
           <DialogActions>

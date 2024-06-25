@@ -58,12 +58,14 @@ export default function Contatos() {
    *
    */
   const [fornecedores, setFornecedores] = React.useState([]);
-  const [isFornecedorSearchingAnimation, setIsFornecedorSearchingAnimation] =
-    React.useState(false);
+  const [
+    isFornecedoresSearchingAnimation,
+    setIsFornecedoresSearchingAnimation,
+  ] = React.useState(false);
 
   async function findFornecedores() {
     try {
-      setIsFornecedorSearchingAnimation(true);
+      setIsFornecedoresSearchingAnimation(true);
       const data = await getFornecedores();
       setFornecedores(data);
     } catch (error) {
@@ -73,7 +75,7 @@ export default function Contatos() {
         message: error.message,
       });
     } finally {
-      setIsFornecedorSearchingAnimation(false);
+      setIsFornecedoresSearchingAnimation(false);
     }
   }
 
@@ -410,11 +412,15 @@ export default function Contatos() {
                 setFormData({ ...formData, fornecedorId: event.target.value })
               }
             >
-              {fornecedores.map((fornecedor) => (
-                <MenuItem key={fornecedor.id} value={fornecedor.id}>
-                  {fornecedor.nome}
-                </MenuItem>
-              ))}
+              {isFornecedoresSearchingAnimation ? (
+                <MenuItem disabled>Loading...</MenuItem>
+              ) : (
+                fornecedores.map((fornecedor) => (
+                  <MenuItem key={fornecedor.id} value={fornecedor.id}>
+                    {fornecedor.nome}
+                  </MenuItem>
+                ))
+              )}
             </BasicSelect>
           </DialogContent>
           <DialogActions>

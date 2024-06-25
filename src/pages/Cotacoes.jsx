@@ -415,12 +415,18 @@ export default function Cotacoes() {
                 value={produtoFilter}
                 onChange={(event) => setProdutoFilter(event.target.value)}
               >
-                <MenuItem value="">All</MenuItem>
-                {produtos.map((produto) => (
-                  <MenuItem key={produto.id} value={produto.id}>
-                    {produto.nome}
-                  </MenuItem>
-                ))}
+                {isProdutosSearchingAnimation ? (
+                  <MenuItem disabled>Loading...</MenuItem>
+                ) : (
+                  <>
+                    <MenuItem value="">All</MenuItem>
+                    {produtos.map((produto) => (
+                      <MenuItem key={produto.id} value={produto.id}>
+                        {produto.nome}
+                      </MenuItem>
+                    ))}
+                  </>
+                )}
               </BasicSelect>
               <br />
               <Basic onClick={handleFilterClick}>Submeter</Basic>
@@ -607,11 +613,15 @@ export default function Cotacoes() {
                 setFormData({ ...formData, fornecedorId: event.target.value })
               }
             >
-              {fornecedores.map((fornecedor) => (
-                <MenuItem key={fornecedor.id} value={fornecedor.id}>
-                  {fornecedor.nome}
-                </MenuItem>
-              ))}
+              {isFornecedoresSearchingAnimation ? (
+                <MenuItem disabled>Loading...</MenuItem>
+              ) : (
+                fornecedores.map((fornecedor) => (
+                  <MenuItem key={fornecedor.id} value={fornecedor.id}>
+                    {fornecedor.nome}
+                  </MenuItem>
+                ))
+              )}
             </BasicSelect>
             <BasicSelect
               required
@@ -621,11 +631,15 @@ export default function Cotacoes() {
                 setFormData({ ...formData, produtoId: event.target.value })
               }
             >
-              {produtos.map((produto) => (
-                <MenuItem key={produto.id} value={produto.id}>
-                  {produto.nome}
-                </MenuItem>
-              ))}
+              {isProdutosSearchingAnimation ? (
+                <MenuItem disabled>Loading...</MenuItem>
+              ) : (
+                produtos.map((produto) => (
+                  <MenuItem key={produto.id} value={produto.id}>
+                    {produto.nome}
+                  </MenuItem>
+                ))
+              )}
             </BasicSelect>
           </DialogContent>
           <DialogActions>
