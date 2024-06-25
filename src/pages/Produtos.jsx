@@ -644,6 +644,7 @@ export default function Produtos() {
               onChange={handleInputChange}
             />
             <BasicSelect
+              required
               label="Categoria de Produto"
               value={formData.categoriaDeProdutoId}
               onChange={(event) =>

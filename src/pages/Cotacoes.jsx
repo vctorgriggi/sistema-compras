@@ -174,13 +174,27 @@ export default function Cotacoes() {
    *
    */
   const fnsDate = (date) => {
-    const utcDate = new Date(date);
-    utcDate.setMinutes(utcDate.getMinutes() + utcDate.getTimezoneOffset());
-    return format(utcDate, "PP", { locale: ptBR });
+    if (date == null) {
+      return "not applicable";
+    }
+
+    const fmtDate = new Date(date);
+    fmtDate.setMinutes(fmtDate.getMinutes() + fmtDate.getTimezoneOffset());
+    return format(fmtDate, "PP", { locale: ptBR });
   };
 
   const brlValue = (value) => {
-    return value.toLocaleString("pt-BR", {
+    if (value == null) {
+      return "not applicable";
+    }
+
+    const fmtValue = parseFloat(value);
+
+    if (isNaN(fmtValue)) {
+      return "invalid value";
+    }
+
+    return fmtValue.toLocaleString("pt-BR", {
       style: "currency",
       currency: "BRL",
     });
@@ -564,6 +578,7 @@ export default function Cotacoes() {
               decimais ao informar valores.
             </Typography>
             <BasicSelect
+              required
               label="Fornecedor"
               value={formData.fornecedorId}
               onChange={(event) =>
@@ -577,6 +592,7 @@ export default function Cotacoes() {
               ))}
             </BasicSelect>
             <BasicSelect
+              required
               label="Produto"
               value={formData.produtoId}
               onChange={(event) =>
