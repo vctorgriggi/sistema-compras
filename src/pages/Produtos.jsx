@@ -28,7 +28,7 @@ import {
   updateById,
   deleteById,
 } from "../services/produtoService";
-import Create from "../components/button/Create";
+import Basic from "../components/button/Basic";
 import BasicCard from "../components/BasicCard";
 import DeleteDialog from "../components/DeleteDialog";
 import Save from "../components/button/Save";
@@ -41,7 +41,7 @@ import {
   add as addProductToSupplier,
   remove as removeProductFromSupplier,
 } from "../services/fornecedorProdutoService";
-import BasicTextField from "../components/BasicTextFields";
+import BasicTextField from "../components/BasicTextField";
 import BasicSelect from "../components/BasicSelect";
 
 export default function Produtos() {
@@ -412,7 +412,7 @@ export default function Produtos() {
             width: "100%",
           }}
         >
-          <Create onClick={() => setFormMode("create")} />
+          <Basic onClick={() => setFormMode("create")} />
         </Box>
         {isSearchingAnimation ? (
           <CircularIndeterminate />

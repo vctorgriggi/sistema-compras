@@ -17,14 +17,14 @@ import {
   updateById,
   deleteById,
 } from "../services/fornecedorService";
-import Create from "../components/button/Create";
+import Basic from "../components/button/Basic";
 import BasicCard from "../components/BasicCard";
 import DeleteDialog from "../components/DeleteDialog";
 import Save from "../components/button/Save";
 import Cancel from "../components/button/Cancel";
 import FeedbackSnackbar from "../components/FeedbackSnackbar";
 import CircularIndeterminate from "../components/CircularIndeterminate";
-import BasicTextField from "../components/BasicTextFields";
+import BasicTextField from "../components/BasicTextField";
 
 export default function Fornecedores() {
   const [fornecedores, setFornecedores] = React.useState([]);
@@ -238,7 +238,7 @@ export default function Fornecedores() {
             width: "100%",
           }}
         >
-          <Create onClick={() => setFormMode("create")} />
+          <Basic onClick={() => setFormMode("create")} />
         </Box>
         {isSearchingAnimation ? (
           <CircularIndeterminate />

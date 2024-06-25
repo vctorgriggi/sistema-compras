@@ -28,6 +28,9 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import "dayjs/locale/pt-br";
 import dayjs from "dayjs";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardContent from "@mui/material/CardContent";
 
 import AdministrativePanel from "../layouts/AdministrativePanel";
 import {
@@ -36,7 +39,7 @@ import {
   updateById,
   deleteById,
 } from "../services/cotacaoService";
-import Create from "../components/button/Create";
+import Basic from "../components/button/Basic";
 import DeleteDialog from "../components/DeleteDialog";
 import Save from "../components/button/Save";
 import Cancel from "../components/button/Cancel";
@@ -44,7 +47,7 @@ import FeedbackSnackbar from "../components/FeedbackSnackbar";
 import CircularIndeterminate from "../components/CircularIndeterminate";
 import { get as getFornecedores } from "../services/fornecedorService";
 import { get as getProdutos } from "../services/produtoService";
-import BasicTextField from "../components/BasicTextFields";
+import BasicTextField from "../components/BasicTextField";
 import BasicSelect from "../components/BasicSelect";
 
 /**
@@ -367,7 +370,20 @@ export default function Cotacoes() {
   /**
    *
    */
+  const [filteredCotacoes, setFilteredCotacoes] = React.useState([]);
   const [produtoFilter, setProdutoFilter] = React.useState("");
+
+  const handleFilterClick = () => {
+    const flterCotacoes = cotacoes.filter((cotacao) =>
+      produtoFilter ? cotacao.produtoId === produtoFilter : true
+    );
+
+    setFilteredCotacoes(flterCotacoes);
+  };
+
+  React.useEffect(() => {
+    setFilteredCotacoes(cotacoes);
+  }, [cotacoes]);
 
   return (
     <AdministrativePanel>
@@ -381,20 +397,36 @@ export default function Cotacoes() {
             width: "100%",
           }}
         >
-          <Create onClick={() => setFormMode("create")} />
+          <Basic onClick={() => setFormMode("create")} />
         </Box>
-        <BasicSelect
-          label="Produto"
-          value={produtoFilter}
-          onChange={(event) => setProdutoFilter(event.target.value)}
-        >
-          <MenuItem value="">All</MenuItem>
-          {produtos.map((produto) => (
-            <MenuItem key={produto.id} value={produto.id}>
-              {produto.nome}
-            </MenuItem>
-          ))}
-        </BasicSelect>
+        <Card sx={{ paddingX: { xs: 2, md: 0 } }}>
+          <CardHeader title="Filtros" />
+          <CardContent>
+            <Box
+              component="form"
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+              }}
+              autoComplete="off"
+            >
+              <BasicSelect
+                label="Produto"
+                value={produtoFilter}
+                onChange={(event) => setProdutoFilter(event.target.value)}
+              >
+                <MenuItem value="">All</MenuItem>
+                {produtos.map((produto) => (
+                  <MenuItem key={produto.id} value={produto.id}>
+                    {produto.nome}
+                  </MenuItem>
+                ))}
+              </BasicSelect>
+              <br />
+              <Basic onClick={handleFilterClick}>Submeter</Basic>
+            </Box>
+          </CardContent>
+        </Card>
         {isSearchingAnimation ? (
           <CircularIndeterminate />
         ) : (
@@ -416,21 +448,11 @@ export default function Cotacoes() {
                   </TableHead>
                   <TableBody>
                     {(rowsPerPage > 0
-                      ? cotacoes
-                          .filter((cotacao) =>
-                            produtoFilter
-                              ? cotacao.produtoId === produtoFilter
-                              : true
-                          )
-                          .slice(
-                            page * rowsPerPage,
-                            page * rowsPerPage + rowsPerPage
-                          )
-                      : cotacoes.filter((cotacao) =>
-                          produtoFilter
-                            ? cotacao.produtoId === produtoFilter
-                            : true
+                      ? filteredCotacoes.slice(
+                          page * rowsPerPage,
+                          page * rowsPerPage + rowsPerPage
                         )
+                      : filteredCotacoes
                     ).map((cotacao) => (
                       <StyledTableRow key={cotacao.id}>
                         <StyledTableCell component="th" scope="row">

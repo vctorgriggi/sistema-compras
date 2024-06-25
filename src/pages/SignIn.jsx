@@ -17,7 +17,7 @@ import Copyright from "../components/Copyright";
 import FeedbackSnackbar from "../components/FeedbackSnackbar";
 import { signIn } from "../services/authService";
 import CircularIndeterminate from "../components/CircularIndeterminate";
-import BasicTextField from "../components/BasicTextFields";
+import BasicTextField from "../components/BasicTextField";
 
 const defaultTheme = createTheme();
 
