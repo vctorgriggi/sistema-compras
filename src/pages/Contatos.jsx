@@ -7,7 +7,6 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
@@ -30,6 +29,7 @@ import Cancel from "../components/button/Cancel";
 import FeedbackSnackbar from "../components/FeedbackSnackbar";
 import CircularIndeterminate from "../components/CircularIndeterminate";
 import { get as getFornecedores } from "../services/fornecedorService";
+import BasicTextField from "../components/BasicTextFields";
 
 export default function Contatos() {
   const [contatos, setContatos] = React.useState([]);
@@ -373,49 +373,34 @@ export default function Contatos() {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </DialogContentText>
-            <TextField
+            <BasicTextField
               required
-              margin="dense"
               id="name"
               name="nome"
               label="Nome"
-              type="text"
-              fullWidth
-              variant="standard"
               value={formData.nome}
               onChange={handleInputChange}
             />
-            <TextField
+            <BasicTextField
               required
-              margin="dense"
               id="name"
               name="telefone"
               label="Telefone"
-              type="text"
-              fullWidth
-              variant="standard"
               value={formData.telefone}
               onChange={handleInputChange}
             />
-            <TextField
-              margin="dense"
+            <BasicTextField
               id="name"
               name="email"
               label="Email"
-              type="text"
-              fullWidth
-              variant="standard"
               value={formData.email}
               onChange={handleInputChange}
             />
-            <TextField
-              margin="dense"
+            <BasicTextField
+              required
               id="name"
               name="cargo"
               label="Cargo"
-              type="text"
-              fullWidth
-              variant="standard"
               value={formData.cargo}
               onChange={handleInputChange}
             />

@@ -7,7 +7,6 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import TablePagination from "@mui/material/TablePagination";
 
@@ -25,6 +24,7 @@ import Save from "../components/button/Save";
 import Cancel from "../components/button/Cancel";
 import FeedbackSnackbar from "../components/FeedbackSnackbar";
 import CircularIndeterminate from "../components/CircularIndeterminate";
+import BasicTextField from "../components/BasicTextFields";
 
 export default function CategoriasDeProdutos() {
   const [cProdutos, setCProdutos] = React.useState([]);
@@ -326,26 +326,18 @@ export default function CategoriasDeProdutos() {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </DialogContentText>
-            <TextField
+            <BasicTextField
               required
-              margin="dense"
               id="name"
               name="nome"
               label="Nome"
-              type="text"
-              fullWidth
-              variant="standard"
               value={formData.nome}
               onChange={handleInputChange}
             />
-            <TextField
-              margin="dense"
+            <BasicTextField
               id="name"
               name="imagemUrl"
               label="Imagem"
-              type="text"
-              fullWidth
-              variant="standard"
               value={formData.imagemUrl}
               onChange={handleInputChange}
             />

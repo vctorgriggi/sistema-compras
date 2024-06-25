@@ -2,7 +2,6 @@ import * as React from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Grid from "@mui/material/Grid";
@@ -11,12 +10,14 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link as RouterLink } from "react-router-dom";
+import Link from "@mui/material/Link";
 
 import Copyright from "../components/Copyright";
 import FeedbackSnackbar from "../components/FeedbackSnackbar";
 import { signUp } from "../services/authService";
 import CircularIndeterminate from "../components/CircularIndeterminate";
+import BasicTextField from "../components/BasicTextFields";
 
 const defaultTheme = createTheme();
 
@@ -89,10 +90,8 @@ export default function SignUp() {
           >
             <Grid container spacing={2}>
               <Grid item xs={12}>
-                <TextField
-                  variant="standard"
+                <BasicTextField
                   required
-                  fullWidth
                   id="email"
                   label="Email"
                   name="email"
@@ -100,14 +99,12 @@ export default function SignUp() {
                 />
               </Grid>
               <Grid item xs={12}>
-                <TextField
-                  variant="standard"
+                <BasicTextField
                   required
-                  fullWidth
-                  name="password"
-                  label="Senha"
-                  type="password"
                   id="password"
+                  label="Senha"
+                  name="password"
+                  type="password"
                   autoComplete="new-password"
                 />
               </Grid>
@@ -135,17 +132,8 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link to="/sign-in">
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      "&:hover": {
-                        textDecoration: "underline",
-                      },
-                    }}
-                  >
-                    Já tem uma conta? Faça login.
-                  </Typography>
+                <Link component={RouterLink} to="/sign-in">
+                  Já tem uma conta? Faça login.
                 </Link>
               </Grid>
             </Grid>

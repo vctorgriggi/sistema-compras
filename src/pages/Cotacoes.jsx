@@ -6,7 +6,6 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
@@ -48,6 +47,7 @@ import FeedbackSnackbar from "../components/FeedbackSnackbar";
 import CircularIndeterminate from "../components/CircularIndeterminate";
 import { get as getFornecedores } from "../services/fornecedorService";
 import { get as getProdutos } from "../services/produtoService";
+import BasicTextField from "../components/BasicTextFields";
 
 /**
  *
@@ -542,6 +542,7 @@ export default function Cotacoes() {
                 onChange={handleDateChange}
                 slotProps={{
                   textField: {
+                    required: true,
                     margin: "dense",
                     fullWidth: true,
                     variant: "standard",
@@ -549,27 +550,21 @@ export default function Cotacoes() {
                 }}
               />
             </LocalizationProvider>
-            <TextField
+            <BasicTextField
               required
-              margin="dense"
               id="name"
               name="quantidade"
               label="Quantidade"
               type="tel"
-              fullWidth
-              variant="standard"
               value={formData.quantidade}
               onChange={handleInputChange}
             />
-            <TextField
+            <BasicTextField
               required
-              margin="dense"
               id="name"
               name="valor"
               label="Valor Total"
               type="tel"
-              fullWidth
-              variant="standard"
               value={formData.valor}
               onChange={handleInputChange}
             />

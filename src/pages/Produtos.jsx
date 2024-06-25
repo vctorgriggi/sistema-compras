@@ -7,7 +7,6 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
@@ -45,6 +44,7 @@ import {
   add as addProductToSupplier,
   remove as removeProductFromSupplier,
 } from "../services/fornecedorProdutoService";
+import BasicTextField from "../components/BasicTextFields";
 
 export default function Produtos() {
   const [produtos, setProdutos] = React.useState([]);
@@ -630,37 +630,25 @@ export default function Produtos() {
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua.
             </DialogContentText>
-            <TextField
+            <BasicTextField
               required
-              margin="dense"
               id="name"
               name="nome"
               label="Nome"
-              type="text"
-              fullWidth
-              variant="standard"
               value={formData.nome}
               onChange={handleInputChange}
             />
-            <TextField
-              margin="dense"
+            <BasicTextField
               id="name"
               name="imagemUrl"
               label="Imagem"
-              type="text"
-              fullWidth
-              variant="standard"
               value={formData.imagemUrl}
               onChange={handleInputChange}
             />
-            <TextField
-              margin="dense"
+            <BasicTextField
               id="name"
               name="descricao"
               label="Descrição"
-              type="text"
-              fullWidth
-              variant="standard"
               value={formData.descricao}
               onChange={handleInputChange}
             />
