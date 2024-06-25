@@ -7,9 +7,6 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Stack from "@mui/material/Stack";
 import TablePagination from "@mui/material/TablePagination";
@@ -45,6 +42,7 @@ import {
   remove as removeProductFromSupplier,
 } from "../services/fornecedorProdutoService";
 import BasicTextField from "../components/BasicTextFields";
+import BasicSelect from "../components/BasicSelect";
 
 export default function Produtos() {
   const [produtos, setProdutos] = React.useState([]);
@@ -561,24 +559,17 @@ export default function Produtos() {
                 Selecione um fornecedor para associar ao produto
               </Typography>
               <Stack direction="row" spacing={1}>
-                <FormControl margin="dense" fullWidth variant="standard">
-                  <InputLabel id="select-fornecedor-label">
-                    Fornecedor
-                  </InputLabel>
-                  <Select
-                    labelId="select-fornecedor-label"
-                    id="select-fornecedor"
-                    value={selectedFornecedor}
-                    label="Fornecedor"
-                    onChange={handleFornecedorChange}
-                  >
-                    {fornecedores.map((fornecedor) => (
-                      <MenuItem key={fornecedor.id} value={fornecedor.id}>
-                        {fornecedor.nome}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
+                <BasicSelect
+                  label="Fornecedor"
+                  value={selectedFornecedor}
+                  onChange={handleFornecedorChange}
+                >
+                  {fornecedores.map((fornecedor) => (
+                    <MenuItem key={fornecedor.id} value={fornecedor.id}>
+                      {fornecedor.nome}
+                    </MenuItem>
+                  ))}
+                </BasicSelect>
                 <IconButton
                   edge="end"
                   aria-label="to add"
@@ -652,29 +643,22 @@ export default function Produtos() {
               value={formData.descricao}
               onChange={handleInputChange}
             />
-            <FormControl required margin="dense" fullWidth variant="standard">
-              <InputLabel id="demo-simple-select-label">
-                Categoria de Produto
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={formData.categoriaDeProdutoId}
-                label="Categoria de Produto"
-                onChange={(event) =>
-                  setFormData({
-                    ...formData,
-                    categoriaDeProdutoId: event.target.value,
-                  })
-                }
-              >
-                {cProdutos.map((cProduto) => (
-                  <MenuItem key={cProduto.id} value={cProduto.id}>
-                    {cProduto.nome}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+            <BasicSelect
+              label="Categoria de Produto"
+              value={formData.categoriaDeProdutoId}
+              onChange={(event) =>
+                setFormData({
+                  ...formData,
+                  categoriaDeProdutoId: event.target.value,
+                })
+              }
+            >
+              {cProdutos.map((cProduto) => (
+                <MenuItem key={cProduto.id} value={cProduto.id}>
+                  {cProduto.nome}
+                </MenuItem>
+              ))}
+            </BasicSelect>
           </DialogContent>
           <DialogActions>
             <Cancel onClick={hideForm} />

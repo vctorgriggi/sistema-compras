@@ -6,9 +6,6 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Stack from "@mui/material/Stack";
 import { styled } from "@mui/material/styles";
@@ -48,6 +45,7 @@ import CircularIndeterminate from "../components/CircularIndeterminate";
 import { get as getFornecedores } from "../services/fornecedorService";
 import { get as getProdutos } from "../services/produtoService";
 import BasicTextField from "../components/BasicTextFields";
+import BasicSelect from "../components/BasicSelect";
 
 /**
  *
@@ -371,25 +369,18 @@ export default function Cotacoes() {
         >
           <Create onClick={() => setFormMode("create")} />
         </Box>
-        <Box component="div">
-          <FormControl margin="dense" fullWidth variant="standard">
-            <InputLabel id="produto-filter-label">Produto</InputLabel>
-            <Select
-              labelId="produto-filter-label"
-              id="produto-filter"
-              value={produtoFilter}
-              label="Produto"
-              onChange={(event) => setProdutoFilter(event.target.value)}
-            >
-              <MenuItem value="">All</MenuItem>
-              {produtos.map((produto) => (
-                <MenuItem key={produto.id} value={produto.id}>
-                  {produto.nome}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Box>
+        <BasicSelect
+          label="Produto"
+          value={produtoFilter}
+          onChange={(event) => setProdutoFilter(event.target.value)}
+        >
+          <MenuItem value="">All</MenuItem>
+          {produtos.map((produto) => (
+            <MenuItem key={produto.id} value={produto.id}>
+              {produto.nome}
+            </MenuItem>
+          ))}
+        </BasicSelect>
         {isSearchingAnimation ? (
           <CircularIndeterminate />
         ) : (
@@ -572,42 +563,32 @@ export default function Cotacoes() {
               Caso necessário, utilize o ponto (.) para separar as casas
               decimais ao informar valores.
             </Typography>
-            <FormControl required margin="dense" fullWidth variant="standard">
-              <InputLabel id="demo-simple-select-label">Fornecedor</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={formData.fornecedorId}
-                label="Fornecedor"
-                onChange={(event) =>
-                  setFormData({ ...formData, fornecedorId: event.target.value })
-                }
-              >
-                {fornecedores.map((fornecedor) => (
-                  <MenuItem key={fornecedor.id} value={fornecedor.id}>
-                    {fornecedor.nome}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <FormControl required margin="dense" fullWidth variant="standard">
-              <InputLabel id="demo-simple-select-label">Produto</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={formData.produtoId}
-                label="produto"
-                onChange={(event) =>
-                  setFormData({ ...formData, produtoId: event.target.value })
-                }
-              >
-                {produtos.map((produto) => (
-                  <MenuItem key={produto.id} value={produto.id}>
-                    {produto.nome}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+            <BasicSelect
+              label="Fornecedor"
+              value={formData.fornecedorId}
+              onChange={(event) =>
+                setFormData({ ...formData, fornecedorId: event.target.value })
+              }
+            >
+              {fornecedores.map((fornecedor) => (
+                <MenuItem key={fornecedor.id} value={fornecedor.id}>
+                  {fornecedor.nome}
+                </MenuItem>
+              ))}
+            </BasicSelect>
+            <BasicSelect
+              label="Produto"
+              value={formData.produtoId}
+              onChange={(event) =>
+                setFormData({ ...formData, produtoId: event.target.value })
+              }
+            >
+              {produtos.map((produto) => (
+                <MenuItem key={produto.id} value={produto.id}>
+                  {produto.nome}
+                </MenuItem>
+              ))}
+            </BasicSelect>
           </DialogContent>
           <DialogActions>
             <Cancel onClick={hideForm} />

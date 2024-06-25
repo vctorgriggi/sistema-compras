@@ -7,9 +7,6 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import Stack from "@mui/material/Stack";
 import TablePagination from "@mui/material/TablePagination";
@@ -30,6 +27,7 @@ import FeedbackSnackbar from "../components/FeedbackSnackbar";
 import CircularIndeterminate from "../components/CircularIndeterminate";
 import { get as getFornecedores } from "../services/fornecedorService";
 import BasicTextField from "../components/BasicTextFields";
+import BasicSelect from "../components/BasicSelect";
 
 export default function Contatos() {
   const [contatos, setContatos] = React.useState([]);
@@ -404,24 +402,20 @@ export default function Contatos() {
               value={formData.cargo}
               onChange={handleInputChange}
             />
-            <FormControl required margin="dense" fullWidth variant="standard">
-              <InputLabel id="demo-simple-select-label">Fornecedor</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={formData.fornecedorId}
-                label="Fornecedor"
-                onChange={(event) =>
-                  setFormData({ ...formData, fornecedorId: event.target.value })
-                }
-              >
-                {fornecedores.map((fornecedor) => (
-                  <MenuItem key={fornecedor.id} value={fornecedor.id}>
-                    {fornecedor.nome}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+            <BasicSelect
+              required
+              label="Fornecedor"
+              value={formData.fornecedorId}
+              onChange={(event) =>
+                setFormData({ ...formData, fornecedorId: event.target.value })
+              }
+            >
+              {fornecedores.map((fornecedor) => (
+                <MenuItem key={fornecedor.id} value={fornecedor.id}>
+                  {fornecedor.nome}
+                </MenuItem>
+              ))}
+            </BasicSelect>
           </DialogContent>
           <DialogActions>
             <Cancel onClick={hideForm} />
