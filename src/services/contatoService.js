@@ -7,12 +7,9 @@ export async function create(dto) {
     const response = await index.post(serviceUrl, dto);
     return response.data;
   } catch (error) {
-    if (error.response) {
-      console.error("response error:", error.response.data);
-      throw new Error(error.response.data);
-    } else if (error.request) {
-      console.error("request error:", error.request);
-      throw new Error("Unable to get a response from the server.");
+    if (error.response && error.response.data && error.response.data.message) {
+      console.error("response error:", error.response.data.message);
+      throw new Error(error.response.data.message);
     } else {
       console.error("unknown error:", error.message);
       throw new Error("An error occurred while processing your request.");
@@ -25,12 +22,9 @@ export async function get() {
     const response = await index.get(serviceUrl);
     return response.data;
   } catch (error) {
-    if (error.response) {
-      console.error("response error:", error.response.data);
-      throw new Error(error.response.data);
-    } else if (error.request) {
-      console.error("request error:", error.request);
-      throw new Error("Unable to get a response from the server.");
+    if (error.response && error.response.data && error.response.data.message) {
+      console.error("response error:", error.response.data.message);
+      throw new Error(error.response.data.message);
     } else {
       console.error("unknown error:", error.message);
       throw new Error("An error occurred while processing your request.");
@@ -43,12 +37,9 @@ export async function getById(id) {
     const response = await index.get(`${serviceUrl}/id/${id}`);
     return response.data;
   } catch (error) {
-    if (error.response) {
-      console.error("response error:", error.response.data);
-      throw new Error(error.response.data);
-    } else if (error.request) {
-      console.error("request error:", error.request);
-      throw new Error("Unable to get a response from the server.");
+    if (error.response && error.response.data && error.response.data.message) {
+      console.error("response error:", error.response.data.message);
+      throw new Error(error.response.data.message);
     } else {
       console.error("unknown error:", error.message);
       throw new Error("An error occurred while processing your request.");
@@ -61,12 +52,9 @@ export async function updateById(id, dto) {
     const response = await index.put(`${serviceUrl}/id/${id}`, dto);
     return response.data;
   } catch (error) {
-    if (error.response) {
-      console.error("response error:", error.response.data);
-      throw new Error(error.response.data);
-    } else if (error.request) {
-      console.error("request error:", error.request);
-      throw new Error("Unable to get a response from the server.");
+    if (error.response && error.response.data && error.response.data.message) {
+      console.error("response error:", error.response.data.message);
+      throw new Error(error.response.data.message);
     } else {
       console.error("unknown error:", error.message);
       throw new Error("An error occurred while processing your request.");
@@ -79,12 +67,9 @@ export async function deleteById(id) {
     const response = await index.delete(`${serviceUrl}/id/${id}`);
     return response.data;
   } catch (error) {
-    if (error.response) {
-      console.error("response error:", error.response.data);
-      throw new Error(error.response.data);
-    } else if (error.request) {
-      console.error("request error:", error.request);
-      throw new Error("Unable to get a response from the server.");
+    if (error.response && error.response.data && error.response.data.message) {
+      console.error("response error:", error.response.data.message);
+      throw new Error(error.response.data.message);
     } else {
       console.error("unknown error:", error.message);
       throw new Error("An error occurred while processing your request.");
