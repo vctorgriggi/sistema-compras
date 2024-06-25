@@ -418,14 +418,16 @@ export default function Cotacoes() {
                 {isProdutosSearchingAnimation ? (
                   <MenuItem disabled>Loading...</MenuItem>
                 ) : (
-                  <>
-                    <MenuItem value="">All</MenuItem>
-                    {produtos.map((produto) => (
+                  [
+                    <MenuItem key="all" value="">
+                      All
+                    </MenuItem>,
+                    produtos.map((produto) => (
                       <MenuItem key={produto.id} value={produto.id}>
                         {produto.nome}
                       </MenuItem>
-                    ))}
-                  </>
+                    )),
+                  ]
                 )}
               </BasicSelect>
               <br />
@@ -575,7 +577,6 @@ export default function Cotacoes() {
                 onChange={handleDateChange}
                 slotProps={{
                   textField: {
-                    required: true,
                     margin: "dense",
                     fullWidth: true,
                     variant: "standard",

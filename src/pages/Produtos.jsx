@@ -19,6 +19,7 @@ import StoreIcon from "@mui/icons-material/Store";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
+import Divider from "@mui/material/Divider";
 
 import AdministrativePanel from "../layouts/AdministrativePanel";
 import {
@@ -550,15 +551,20 @@ export default function Produtos() {
             <Box
               component="div"
               sx={{
-                display: "flex",
-                flexDirection: "column",
                 margin: "1rem 0 0",
               }}
             >
-              <Typography variant="subtitle1" gutterBottom>
-                Selecione um fornecedor para associar ao produto
-              </Typography>
-              <Stack direction="row" spacing={1}>
+              <Divider>
+                Gostaria de associar algum fornecedor a este produto?
+              </Divider>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: "0.5rem",
+                }}
+              >
                 <BasicSelect
                   label="Fornecedor"
                   value={selectedFornecedor}
@@ -586,7 +592,7 @@ export default function Produtos() {
                     <AddIcon />
                   )}
                 </IconButton>
-              </Stack>
+              </Box>
             </Box>
           )}
         </DialogContent>
