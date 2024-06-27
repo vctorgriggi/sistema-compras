@@ -25,7 +25,6 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
-import "dayjs/locale/pt-br";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
@@ -178,8 +177,6 @@ export default function Cotacoes() {
     if (!date) {
       return "not applicable";
     }
-
-    dayjs.locale("pt-br"); // set date in brazilian portuguese
 
     const fmtDate = withTime ? "lll" : "ll";
 
