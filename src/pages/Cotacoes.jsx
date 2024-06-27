@@ -24,8 +24,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import "dayjs/locale/pt-br";
 import dayjs from "dayjs";
+import "dayjs/locale/pt-br";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
@@ -174,6 +174,18 @@ export default function Cotacoes() {
   /**
    *
    */
+  const localDate = (date, withTime = false) => {
+    if (!date) {
+      return "not applicable";
+    }
+
+    dayjs.locale("pt-br");
+
+    const fmtDate = withTime ? "lll" : "ll";
+
+    return dayjs(date).format(fmtDate);
+  };
+
   const brlValue = (value) => {
     if (!value) {
       return "not applicable";
@@ -258,11 +270,7 @@ export default function Cotacoes() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (formMode === "create") {
-      handleCreate();
-    } else if (formMode === "update") {
-      handleUpdate();
-    }
+    formMode === "create" ? handleCreate() : handleUpdate();
   };
 
   const hideForm = () => {
@@ -431,9 +439,9 @@ export default function Cotacoes() {
                   <TableHead>
                     <TableRow>
                       <StyledTableCell>Ações</StyledTableCell>
-                      {/* TODO <StyledTableCell align="left">
-                Data da Cotação
-              </StyledTableCell> */}
+                      <StyledTableCell align="left">
+                        Data da Cotação
+                      </StyledTableCell>
                       <StyledTableCell align="left">Fornecedor</StyledTableCell>
                       <StyledTableCell align="left">Produto</StyledTableCell>
                       <StyledTableCell align="left">Validade</StyledTableCell>
@@ -468,9 +476,10 @@ export default function Cotacoes() {
                             </IconButton>
                           </Stack>
                         </StyledTableCell>
-                        {/* TODO <StyledTableCell align="left">
-                  {cotacao.createdAt}
-                </StyledTableCell> */}
+                        <StyledTableCell align="left">
+                          {localDate(cotacao.createdAt, true) ||
+                            "not applicable"}
+                        </StyledTableCell>
                         <StyledTableCell align="left">
                           {cotacao.fornecedor?.nome || "not applicable"}
                         </StyledTableCell>
@@ -478,7 +487,7 @@ export default function Cotacoes() {
                           {cotacao.produto?.nome || "not applicable"}
                         </StyledTableCell>
                         <StyledTableCell align="left">
-                          {cotacao.validade || "not applicable"}
+                          {localDate(cotacao.validade) || "not applicable"}
                         </StyledTableCell>
                         <StyledTableCell align="left">
                           {cotacao.quantidade}

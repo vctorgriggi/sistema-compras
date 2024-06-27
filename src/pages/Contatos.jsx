@@ -161,11 +161,7 @@ export default function Contatos() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    if (formMode === "create") {
-      handleCreate();
-    } else if (formMode === "update") {
-      handleUpdate();
-    }
+    formMode === "create" ? handleCreate() : handleUpdate();
   };
 
   const hideForm = () => {
