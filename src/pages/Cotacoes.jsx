@@ -179,7 +179,7 @@ export default function Cotacoes() {
       return "not applicable";
     }
 
-    dayjs.locale("pt-br");
+    dayjs.locale("pt-br"); // set date in brazilian portuguese
 
     const fmtDate = withTime ? "lll" : "ll";
 
