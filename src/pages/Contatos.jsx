@@ -272,12 +272,11 @@ export default function Contatos() {
         >
           <Basic onClick={() => setFormMode("create")} />
         </Box>
-        {isSearchingAnimation ? (
-          <CircularIndeterminate />
-        ) : (
-          <Stack direction="column" spacing={3}>
-            {contatos.length > 0 ? (
-              <>
+        {isSearchingAnimation && <CircularIndeterminate />}
+        {!isSearchingAnimation && (
+          <>
+            {contatos.length > 0 && (
+              <Stack direction="column" spacing={3}>
                 {(rowsPerPage > 0
                   ? contatos.slice(
                       page * rowsPerPage,
@@ -327,8 +326,9 @@ export default function Contatos() {
                   onPageChange={handleChangePage}
                   onRowsPerPageChange={handleChangeRowsPerPage}
                 />
-              </>
-            ) : (
+              </Stack>
+            )}
+            {contatos.length === 0 && (
               <Typography
                 variant="body1"
                 sx={{
@@ -339,7 +339,7 @@ export default function Contatos() {
                 não há contatos cadastrados.
               </Typography>
             )}
-          </Stack>
+          </>
         )}
       </Stack>
 
@@ -412,15 +412,15 @@ export default function Contatos() {
                 setFormData({ ...formData, fornecedorId: event.target.value })
               }
             >
-              {isFornecedoresSearchingAnimation ? (
+              {isFornecedoresSearchingAnimation && (
                 <MenuItem disabled>Loading...</MenuItem>
-              ) : (
+              )}
+              {!isFornecedoresSearchingAnimation &&
                 fornecedores.map((fornecedor) => (
                   <MenuItem key={fornecedor.id} value={fornecedor.id}>
                     {fornecedor.nome}
                   </MenuItem>
-                ))
-              )}
+                ))}
             </BasicSelect>
           </DialogContent>
           <DialogActions>

@@ -21,8 +21,6 @@ import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { format } from "date-fns";
-import { ptBR } from "date-fns/locale";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
@@ -176,18 +174,8 @@ export default function Cotacoes() {
   /**
    *
    */
-  const fnsDate = (date) => {
-    if (date == null) {
-      return "not applicable";
-    }
-
-    const fmtDate = new Date(date);
-    fmtDate.setMinutes(fmtDate.getMinutes() + fmtDate.getTimezoneOffset());
-    return format(fmtDate, "PP", { locale: ptBR });
-  };
-
   const brlValue = (value) => {
-    if (value == null) {
+    if (!value) {
       return "not applicable";
     }
 
@@ -407,6 +395,7 @@ export default function Cotacoes() {
               sx={{
                 display: "flex",
                 flexDirection: "column",
+                gap: 2,
               }}
               autoComplete="off"
             >
@@ -415,36 +404,36 @@ export default function Cotacoes() {
                 value={produtoFilter}
                 onChange={(event) => setProdutoFilter(event.target.value)}
               >
-                {isProdutosSearchingAnimation ? (
+                {isProdutosSearchingAnimation && (
                   <MenuItem disabled>Loading...</MenuItem>
-                ) : (
-                  [
-                    <MenuItem key="all" value="">
-                      All
-                    </MenuItem>,
-                    produtos.map((produto) => (
-                      <MenuItem key={produto.id} value={produto.id}>
-                        {produto.nome}
-                      </MenuItem>
-                    )),
-                  ]
                 )}
+                {!isProdutosSearchingAnimation && [
+                  <MenuItem key="all" value="">
+                    All
+                  </MenuItem>,
+                  produtos.map((produto) => (
+                    <MenuItem key={produto.id} value={produto.id}>
+                      {produto.nome}
+                    </MenuItem>
+                  )),
+                ]}
               </BasicSelect>
-              <br />
               <Basic onClick={handleFilterClick}>Submeter</Basic>
             </Box>
           </CardContent>
         </Card>
-        {isSearchingAnimation ? (
-          <CircularIndeterminate />
-        ) : (
+        {isSearchingAnimation && <CircularIndeterminate />}
+        {!isSearchingAnimation && (
           <>
-            {cotacoes.length > 0 ? (
+            {cotacoes.length > 0 && (
               <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 700 }} aria-label="customized table">
                   <TableHead>
                     <TableRow>
                       <StyledTableCell>Ações</StyledTableCell>
+                      {/* TODO <StyledTableCell align="left">
+                Data da Cotação
+              </StyledTableCell> */}
                       <StyledTableCell align="left">Fornecedor</StyledTableCell>
                       <StyledTableCell align="left">Produto</StyledTableCell>
                       <StyledTableCell align="left">Validade</StyledTableCell>
@@ -479,6 +468,9 @@ export default function Cotacoes() {
                             </IconButton>
                           </Stack>
                         </StyledTableCell>
+                        {/* TODO <StyledTableCell align="left">
+                  {cotacao.createdAt}
+                </StyledTableCell> */}
                         <StyledTableCell align="left">
                           {cotacao.fornecedor?.nome || "not applicable"}
                         </StyledTableCell>
@@ -486,7 +478,7 @@ export default function Cotacoes() {
                           {cotacao.produto?.nome || "not applicable"}
                         </StyledTableCell>
                         <StyledTableCell align="left">
-                          {fnsDate(cotacao.validade)}
+                          {cotacao.validade || "not applicable"}
                         </StyledTableCell>
                         <StyledTableCell align="left">
                           {cotacao.quantidade}
@@ -522,7 +514,8 @@ export default function Cotacoes() {
                   </TableFooter>
                 </Table>
               </TableContainer>
-            ) : (
+            )}
+            {cotacoes.length === 0 && (
               <Typography
                 variant="body1"
                 sx={{
@@ -614,15 +607,15 @@ export default function Cotacoes() {
                 setFormData({ ...formData, fornecedorId: event.target.value })
               }
             >
-              {isFornecedoresSearchingAnimation ? (
+              {isFornecedoresSearchingAnimation && (
                 <MenuItem disabled>Loading...</MenuItem>
-              ) : (
+              )}
+              {!isFornecedoresSearchingAnimation &&
                 fornecedores.map((fornecedor) => (
                   <MenuItem key={fornecedor.id} value={fornecedor.id}>
                     {fornecedor.nome}
                   </MenuItem>
-                ))
-              )}
+                ))}
             </BasicSelect>
             <BasicSelect
               required
@@ -632,15 +625,16 @@ export default function Cotacoes() {
                 setFormData({ ...formData, produtoId: event.target.value })
               }
             >
-              {isProdutosSearchingAnimation ? (
+              {isProdutosSearchingAnimation && (
                 <MenuItem disabled>Loading...</MenuItem>
-              ) : (
+              )}
+
+              {!isProdutosSearchingAnimation &&
                 produtos.map((produto) => (
                   <MenuItem key={produto.id} value={produto.id}>
                     {produto.nome}
                   </MenuItem>
-                ))
-              )}
+                ))}
             </BasicSelect>
           </DialogContent>
           <DialogActions>

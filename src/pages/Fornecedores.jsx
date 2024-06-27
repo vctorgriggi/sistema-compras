@@ -240,11 +240,10 @@ export default function Fornecedores() {
         >
           <Basic onClick={() => setFormMode("create")} />
         </Box>
-        {isSearchingAnimation ? (
-          <CircularIndeterminate />
-        ) : (
+        {isSearchingAnimation && <CircularIndeterminate />}
+        {!isSearchingAnimation && (
           <>
-            {fornecedores.length > 0 ? (
+            {fornecedores.length > 0 && (
               <Stack direction="column" spacing={3}>
                 {(rowsPerPage > 0
                   ? fornecedores.slice(
@@ -296,7 +295,8 @@ export default function Fornecedores() {
                   onRowsPerPageChange={handleChangeRowsPerPage}
                 />
               </Stack>
-            ) : (
+            )}
+            {fornecedores.length === 0 && (
               <Typography
                 variant="body1"
                 sx={{

@@ -415,11 +415,10 @@ export default function Produtos() {
         >
           <Basic onClick={() => setFormMode("create")} />
         </Box>
-        {isSearchingAnimation ? (
-          <CircularIndeterminate />
-        ) : (
+        {isSearchingAnimation && <CircularIndeterminate />}
+        {!isSearchingAnimation && (
           <>
-            {produtos.length > 0 ? (
+            {produtos.length > 0 && (
               <Stack direction="column" spacing={3}>
                 {(rowsPerPage > 0
                   ? produtos.slice(
@@ -478,7 +477,8 @@ export default function Produtos() {
                   onRowsPerPageChange={handleChangeRowsPerPage}
                 />
               </Stack>
-            ) : (
+            )}
+            {produtos.length === 0 && (
               <Typography
                 variant="body1"
                 sx={{
@@ -508,45 +508,46 @@ export default function Produtos() {
           Fornecedores associados ao produto
         </DialogTitle>
         <DialogContent>
-          {isFPSearchingAnimation ? (
-            <CircularIndeterminate size={25} />
-          ) : selectedProduto?.fornecedores?.length > 0 ? (
-            <List>
-              {selectedProduto.fornecedores.map((fornecedor) => (
-                <ListItem
-                  key={fornecedor.id}
-                  secondaryAction={
-                    <IconButton
-                      edge="end"
-                      aria-label="delete"
-                      onClick={() => handleRemoveFP(fornecedor.id)}
-                      disabled={isFPDeletingAnimation}
-                    >
-                      {isFPDeletingAnimation ? (
-                        <CircularIndeterminate size={25} />
-                      ) : (
-                        <DeleteIcon />
-                      )}
-                    </IconButton>
-                  }
-                >
-                  <ListItemAvatar>
-                    <Avatar>
-                      <StoreIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={fornecedor.nome}
-                    // secondary={""}
-                  />
-                </ListItem>
-              ))}
-            </List>
-          ) : (
-            <DialogContentText>
-              Não há fornecedores associados a este produto.
-            </DialogContentText>
-          )}
+          {isFPSearchingAnimation && <CircularIndeterminate size={25} />}
+          {!isFPSearchingAnimation &&
+            selectedProduto?.fornecedores?.length > 0 && (
+              <List>
+                {selectedProduto.fornecedores.map((fornecedor) => (
+                  <ListItem
+                    key={fornecedor.id}
+                    secondaryAction={
+                      <IconButton
+                        edge="end"
+                        aria-label="delete"
+                        onClick={() => handleRemoveFP(fornecedor.id)}
+                        disabled={isFPDeletingAnimation}
+                      >
+                        {isFPDeletingAnimation && (
+                          <CircularIndeterminate size={25} />
+                        )}
+                        {!isFPDeletingAnimation && <DeleteIcon />}
+                      </IconButton>
+                    }
+                  >
+                    <ListItemAvatar>
+                      <Avatar>
+                        <StoreIcon />
+                      </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={fornecedor.nome}
+                      // secondary={""}
+                    />
+                  </ListItem>
+                ))}
+              </List>
+            )}
+          {!isFPSearchingAnimation &&
+            !(selectedProduto?.fornecedores?.length > 0) && (
+              <DialogContentText>
+                Não há fornecedores associados a este produto.
+              </DialogContentText>
+            )}
           {!isFPSearchingAnimation && (
             <Box
               component="div"
@@ -562,7 +563,7 @@ export default function Produtos() {
                   display: "flex",
                   flexDirection: "row",
                   alignItems: "center",
-                  gap: "0.5rem",
+                  gap: 1,
                 }}
               >
                 <BasicSelect
@@ -570,15 +571,15 @@ export default function Produtos() {
                   value={selectedFornecedor}
                   onChange={handleFornecedorChange}
                 >
-                  {isFornecedoresSearchingAnimation ? (
+                  {isFornecedoresSearchingAnimation && (
                     <MenuItem disabled>Loading...</MenuItem>
-                  ) : (
+                  )}
+                  {!isFornecedoresSearchingAnimation &&
                     fornecedores.map((fornecedor) => (
                       <MenuItem key={fornecedor.id} value={fornecedor.id}>
                         {fornecedor.nome}
                       </MenuItem>
-                    ))
-                  )}
+                    ))}
                 </BasicSelect>
                 <IconButton
                   edge="end"
@@ -586,11 +587,8 @@ export default function Produtos() {
                   onClick={handleAddFP}
                   disabled={isFPAddAnimation}
                 >
-                  {isFPAddAnimation ? (
-                    <CircularIndeterminate size={25} />
-                  ) : (
-                    <AddIcon />
-                  )}
+                  {isFPAddAnimation && <CircularIndeterminate size={25} />}
+                  {!isFPAddAnimation && <AddIcon />}
                 </IconButton>
               </Box>
             </Box>
@@ -664,15 +662,15 @@ export default function Produtos() {
                 })
               }
             >
-              {isCProdutosSearchingAnimation ? (
+              {isCProdutosSearchingAnimation && (
                 <MenuItem disabled>Loading...</MenuItem>
-              ) : (
+              )}
+              {!isCProdutosSearchingAnimation &&
                 cProdutos.map((cProduto) => (
                   <MenuItem key={cProduto.id} value={cProduto.id}>
                     {cProduto.nome}
                   </MenuItem>
-                ))
-              )}
+                ))}
             </BasicSelect>
           </DialogContent>
           <DialogActions>

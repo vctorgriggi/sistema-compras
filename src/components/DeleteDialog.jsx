@@ -36,11 +36,10 @@ export default function DeleteDialog(props) {
             textTransform: "capitalize",
           }}
         >
-          {props.isDeletingAnimation ? (
+          {props.isDeletingAnimation && (
             <CircularIndeterminate size={25} color="inherit" />
-          ) : (
-            "Sim, excluir"
           )}
+          {!props.isDeletingAnimation && "Sim, excluir"}
         </Button>
       </DialogActions>
     </Dialog>

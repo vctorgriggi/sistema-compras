@@ -115,12 +115,12 @@ export default function SignIn() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              {isLoadingAnimation ? (
+              {isLoadingAnimation && (
                 <CircularIndeterminate size={25} color="inherit" />
-              ) : (
-                "Sign In"
               )}
+              {!isLoadingAnimation && "Sign In"}
             </Button>
+
             <Grid container>
               {/* <Grid item xs>
                 <Link component={RouterLink} to="" variant="body2">

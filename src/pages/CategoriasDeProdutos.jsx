@@ -231,11 +231,10 @@ export default function CategoriasDeProdutos() {
         >
           <Basic onClick={() => setFormMode("create")} />
         </Box>
-        {isSearchingAnimation ? (
-          <CircularIndeterminate />
-        ) : (
+        {isSearchingAnimation && <CircularIndeterminate />}
+        {!isSearchingAnimation && (
           <>
-            {cProdutos.length > 0 ? (
+            {cProdutos.length > 0 && (
               <Stack direction="column" spacing={3}>
                 {(rowsPerPage > 0
                   ? cProdutos.slice(
@@ -281,7 +280,8 @@ export default function CategoriasDeProdutos() {
                   onRowsPerPageChange={handleChangeRowsPerPage}
                 />
               </Stack>
-            ) : (
+            )}
+            {cProdutos.length === 0 && (
               <Typography
                 variant="body1"
                 sx={{

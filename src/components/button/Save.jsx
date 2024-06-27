@@ -13,13 +13,12 @@ export default function Save(props) {
         textTransform: "capitalize",
       }}
     >
-      {props.isCreatingAnimation || props.isUpdatingAnimation ? (
+      {(props.isCreatingAnimation || props.isUpdatingAnimation) && (
         <CircularIndeterminate size={25} color="inherit" />
-      ) : props.formMode === "update" ? (
-        "Salvar mudanças"
-      ) : (
-        "Adicionar à lista"
       )}
+      {!props.isCreatingAnimation &&
+        !props.isUpdatingAnimation &&
+        (props.formMode === "update" ? "Salvar mudanças" : "Adicionar à lista")}
     </Button>
   );
 }

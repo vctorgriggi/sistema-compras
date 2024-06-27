@@ -124,12 +124,12 @@ export default function SignUp() {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              {isLoadingAnimation ? (
+              {isLoadingAnimation && (
                 <CircularIndeterminate size={25} color="inherit" />
-              ) : (
-                "Sign Up"
               )}
+              {!isLoadingAnimation && "Sign Up"}
             </Button>
+
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link component={RouterLink} to="/sign-in">
