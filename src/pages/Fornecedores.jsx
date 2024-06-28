@@ -354,7 +354,6 @@ export default function Fornecedores() {
               onChange={handleInputChange}
             />
             <BasicTextField
-              required
               id="name"
               name="telefone"
               label="Telefone"
@@ -362,6 +361,7 @@ export default function Fornecedores() {
               onChange={handleInputChange}
             />
             <BasicTextField
+              required
               id="name"
               name="email"
               label="Email"

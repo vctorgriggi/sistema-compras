@@ -378,7 +378,6 @@ export default function Contatos() {
               onChange={handleInputChange}
             />
             <BasicTextField
-              required
               id="name"
               name="telefone"
               label="Telefone"
@@ -386,6 +385,7 @@ export default function Contatos() {
               onChange={handleInputChange}
             />
             <BasicTextField
+              required
               id="name"
               name="email"
               label="Email"
