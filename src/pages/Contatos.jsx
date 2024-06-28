@@ -285,11 +285,13 @@ export default function Contatos() {
                     label={`${contato.fornecedor?.nome || "not applicable"}`}
                     title={contato.nome}
                     subtitle={contato.cargo}
-                    description={`Para mais informações, ${
+                    description={`Para mais informações, envie um email para ${
                       contato.email
-                        ? `envie um email para ${contato.email} ou`
+                    }${
+                      contato.telefone
+                        ? ` ou ligue para ${contato.telefone}`
                         : ""
-                    } ligue para ${contato.telefone}.`}
+                    }.`}
                     actions={
                       <Stack direction="row" spacing={1}>
                         <Button

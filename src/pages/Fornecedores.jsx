@@ -253,11 +253,13 @@ export default function Fornecedores() {
                     label={`${fornecedor.cnpj}`}
                     title={fornecedor.nome}
                     subtitle={fornecedor.endereco}
-                    description={`Para mais informações, ${
+                    description={`Para mais informações, envie um email para ${
                       fornecedor.email
-                        ? `envie um email para ${fornecedor.email} ou`
+                    }${
+                      fornecedor.telefone
+                        ? ` ou ligue para ${fornecedor.telefone}`
                         : ""
-                    } ligue para ${fornecedor.telefone}.`}
+                    }.`}
                     actions={
                       <Stack direction="row" spacing={1}>
                         <Button
