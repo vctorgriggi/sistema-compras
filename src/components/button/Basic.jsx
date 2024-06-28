@@ -6,8 +6,11 @@ export default function Basic(props) {
       variant="contained"
       type={props.type}
       onClick={props.onClick}
+      disabled={props.disabled}
+      fullWidth={props.fullWidth}
       sx={{
         textTransform: "capitalize",
+        ...props.sx,
       }}
     >
       {props.children || "Criar novo item"}

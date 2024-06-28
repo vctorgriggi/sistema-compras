@@ -1,6 +1,5 @@
 import * as React from "react";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
@@ -18,6 +17,7 @@ import FeedbackSnackbar from "../components/FeedbackSnackbar";
 import { signUp } from "../services/authService";
 import CircularIndeterminate from "../components/CircularIndeterminate";
 import BasicTextField from "../components/BasicTextField";
+import Basic from "../components/button/Basic";
 
 const defaultTheme = createTheme();
 
@@ -117,18 +117,17 @@ export default function SignUp() {
                 />
               </Grid> */}
             </Grid>
-            <Button
+            <Basic
               disabled={isLoadingAnimation}
               type="submit"
               fullWidth
-              variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
               {isLoadingAnimation && (
                 <CircularIndeterminate size={25} color="inherit" />
               )}
               {!isLoadingAnimation && "Sign Up"}
-            </Button>
+            </Basic>
 
             <Grid container justifyContent="flex-end">
               <Grid item>
