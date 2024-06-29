@@ -108,7 +108,7 @@ export default function SignUp() {
                   autoComplete="new-password"
                 />
               </Grid>
-              {/*               <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <FormControlLabel
                   control={
                     <Checkbox value="allowExtraEmails" color="primary" />
@@ -118,9 +118,9 @@ export default function SignUp() {
               </Grid> */}
             </Grid>
             <Basic
-              disabled={isLoadingAnimation}
               type="submit"
               fullWidth
+              disabled={isLoadingAnimation}
               sx={{ mt: 3, mb: 2 }}
             >
               {isLoadingAnimation && (
@@ -131,7 +131,7 @@ export default function SignUp() {
 
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link component={RouterLink} to="/sign-in">
+                <Link component={RouterLink} to="/sign-in" variant="body2">
                   Já tem uma conta? Faça login.
                 </Link>
               </Grid>
