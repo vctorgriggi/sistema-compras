@@ -75,7 +75,7 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem onClick={handleClose}>
+        {/* <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <Avatar />
           </ListItemIcon>
@@ -89,21 +89,7 @@ export default function AccountMenu() {
             Perfil
           </Typography>
         </MenuItem>
-        <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <Avatar />
-          </ListItemIcon>
-          <Typography
-            sx={{
-              color: "var(--gray-400)",
-              fontSize: "1rem",
-              lineHeight: "2rem",
-            }}
-          >
-            Minha conta
-          </Typography>
-        </MenuItem>
-        <Divider />
+        <Divider /> */}
         <MenuItem
           component={Link}
           to="sign-in"

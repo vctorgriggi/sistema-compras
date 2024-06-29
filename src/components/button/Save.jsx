@@ -19,7 +19,7 @@ export default function Save(props) {
       )}
       {!props.isCreatingAnimation &&
         !props.isUpdatingAnimation &&
-        (props.formMode === "create" ? "Adicionar à lista" : "Salvar mudanças")}
+        (props.formMode === "update" ? "Salvar mudanças" : "Adicionar à lista")}
     </Button>
   );
 }
