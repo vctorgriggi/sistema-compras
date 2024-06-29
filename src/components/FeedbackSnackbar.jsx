@@ -18,6 +18,7 @@ export default function FeedbackSnackbar(props) {
         sx={{ width: "100%" }}
       >
         {props.message}
+        {/* i use props here because it's easier to manipulate in this way */}
       </Alert>
     </Snackbar>
   );

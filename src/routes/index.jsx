@@ -1,14 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import App from "../App";
+import CategoriasDeProdutos from "../pages/CategoriasDeProdutos";
+import ForgotPassword from "../pages/ForgotPassword";
+import Fornecedores from "../pages/Fornecedores";
+import Cotacoes from "../pages/Cotacoes";
+import Contatos from "../pages/Contatos";
+import Produtos from "../pages/Produtos";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
-import ForgotPassword from "../pages/ForgotPassword";
-import Produtos from "../pages/Produtos";
-import CategoriasDeProdutos from "../pages/CategoriasDeProdutos";
-import Fornecedores from "../pages/Fornecedores";
-import Contatos from "../pages/Contatos";
-import Cotacoes from "../pages/Cotacoes";
+import App from "../App";
 import { PrivateRoute } from "./PrivateRoute";
 
 export default function CreateRoutes() {

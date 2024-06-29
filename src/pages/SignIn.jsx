@@ -1,45 +1,44 @@
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import CssBaseline from "@mui/material/CssBaseline";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
-import Link from "@mui/material/Link";
-import Paper from "@mui/material/Paper";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import Typography from "@mui/material/Typography";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 
-import Copyright from "../components/Copyright";
-import FeedbackSnackbar from "../components/FeedbackSnackbar";
-import { signIn } from "../services/authService";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import CssBaseline from "@mui/material/CssBaseline";
+import Typography from "@mui/material/Typography";
+import Checkbox from "@mui/material/Checkbox";
+import Avatar from "@mui/material/Avatar";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+import Link from "@mui/material/Link";
+import Box from "@mui/material/Box";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+
 import CircularIndeterminate from "../components/CircularIndeterminate";
+import FeedbackSnackbar from "../components/FeedbackSnackbar";
 import BasicTextField from "../components/BasicTextField";
+import Copyright from "../components/Copyright";
 import Basic from "../components/button/Basic";
+import { signIn } from "../services/authService";
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
   const [isLoadingAnimation, setIsLoadingAnimation] = React.useState(false);
 
-  /**
-   *
-   */
+  /* snackbar feedback */
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [severitySnackbar, setSeveritySnackbar] = React.useState("warning");
   const [messageSnackbar, setMessageSnackbar] = React.useState("");
+
   const handleOpenSnackbar = (props) => {
     setSeveritySnackbar(props.severity);
     setMessageSnackbar(props.message);
     setOpenSnackbar(true);
   };
 
-  /**
-   *
-   */
+  /* submitting action */
   const navigate = useNavigate();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -81,10 +80,6 @@ export default function SignIn() {
             backgroundPosition: "left",
           }}
         />
-
-        {/**
-         *
-         */}
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
@@ -161,10 +156,6 @@ export default function SignIn() {
             </Box>
           </Box>
         </Grid>
-
-        {/**
-         *
-         */}
         <FeedbackSnackbar
           open={openSnackbar}
           severity={severitySnackbar}

@@ -1,32 +1,34 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Dialog from "@mui/material/Dialog";
+
+import DialogContentText from "@mui/material/DialogContentText";
+import TablePagination from "@mui/material/TablePagination";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
 import Stack from "@mui/material/Stack";
-import TablePagination from "@mui/material/TablePagination";
+import Box from "@mui/material/Box";
 
+import CircularIndeterminate from "../components/CircularIndeterminate";
 import AdministrativePanel from "../layouts/AdministrativePanel";
+import FeedbackSnackbar from "../components/FeedbackSnackbar";
+import BasicTextField from "../components/BasicTextField";
+import DeleteDialog from "../components/DeleteDialog";
+import Cancel from "../components/button/Cancel";
+import BasicCard from "../components/BasicCard";
+import Basic from "../components/button/Basic";
+import Save from "../components/button/Save";
 import {
   create,
   get,
   updateById,
   deleteById,
 } from "../services/categoriaDeProdutoService";
-import Basic from "../components/button/Basic";
-import BasicCard from "../components/BasicCard";
-import DeleteDialog from "../components/DeleteDialog";
-import Save from "../components/button/Save";
-import Cancel from "../components/button/Cancel";
-import FeedbackSnackbar from "../components/FeedbackSnackbar";
-import CircularIndeterminate from "../components/CircularIndeterminate";
-import BasicTextField from "../components/BasicTextField";
 
 export default function CategoriasDeProdutos() {
+  /* categorias de produtos */
   const [cProdutos, setCProdutos] = React.useState([]);
   const [selectedCProduto, setSelectedCProduto] = React.useState(null);
   const [isSearchingAnimation, setIsSearchingAnimation] = React.useState(false);
@@ -51,9 +53,7 @@ export default function CategoriasDeProdutos() {
     find();
   }, []);
 
-  /**
-   *
-   */
+  /* pagination */
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -66,9 +66,7 @@ export default function CategoriasDeProdutos() {
     setPage(0);
   };
 
-  /**
-   *
-   */
+  /* deleting action */
   const [isDeleting, setIsDeleting] = React.useState(false);
   const [isDeletingAnimation, setIsDeletingAnimation] = React.useState(false);
 
@@ -105,9 +103,7 @@ export default function CategoriasDeProdutos() {
     }
   };
 
-  /**
-   *
-   */
+  /* init formData */
   const [formData, setFormData] = React.useState({
     nome: "",
     imagemUrl: "",
@@ -118,9 +114,7 @@ export default function CategoriasDeProdutos() {
     setFormData({ ...formData, [name]: value });
   };
 
-  /**
-   *
-   */
+  /* setup form modes */
   const [formMode, setFormMode] = React.useState(null);
 
   const handleSubmit = async (event) => {
@@ -138,9 +132,7 @@ export default function CategoriasDeProdutos() {
     setSelectedCProduto(null);
   };
 
-  /**
-   *
-   */
+  /* creating action */
   const [isCreatingAnimation, setIsCreatingAnimation] = React.useState(false);
 
   const handleCreate = async () => {
@@ -164,9 +156,7 @@ export default function CategoriasDeProdutos() {
     }
   };
 
-  /**
-   *
-   */
+  /* updating action */
   const [isUpdatingAnimation, setIsUpdatingAnimation] = React.useState(false);
 
   const showUpdate = (cProduto) => {
@@ -201,12 +191,11 @@ export default function CategoriasDeProdutos() {
     }
   };
 
-  /**
-   *
-   */
+  /* snackbar feedback */
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [severitySnackbar, setSeveritySnackbar] = React.useState("warning");
   const [messageSnackbar, setMessageSnackbar] = React.useState("");
+
   const handleOpenSnackbar = (props) => {
     setSeveritySnackbar(props.severity);
     setMessageSnackbar(props.message);
@@ -215,9 +204,6 @@ export default function CategoriasDeProdutos() {
 
   return (
     <AdministrativePanel>
-      {/**
-       *
-       */}
       <Stack direction="column" spacing={4}>
         <Box
           component="div"
@@ -291,20 +277,12 @@ export default function CategoriasDeProdutos() {
           </>
         )}
       </Stack>
-
-      {/**
-       *
-       */}
       <DeleteDialog
         open={isDeleting}
         onCancel={hideDelete}
         onConfirm={handleDelete}
         isDeletingAnimation={isDeletingAnimation}
       />
-
-      {/**
-       *
-       */}
       <Dialog open={formMode !== null} onClose={hideForm}>
         <Box
           component="form"
@@ -348,10 +326,6 @@ export default function CategoriasDeProdutos() {
           </DialogActions>
         </Box>
       </Dialog>
-
-      {/**
-       *
-       */}
       <FeedbackSnackbar
         open={openSnackbar}
         severity={severitySnackbar}

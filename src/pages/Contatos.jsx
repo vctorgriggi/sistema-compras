@@ -1,35 +1,37 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Dialog from "@mui/material/Dialog";
+
+import TablePagination from "@mui/material/TablePagination";
+import DialogContentText from "@mui/material/DialogContentText";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
+import Typography from "@mui/material/Typography";
 import MenuItem from "@mui/material/MenuItem";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
 import Stack from "@mui/material/Stack";
-import TablePagination from "@mui/material/TablePagination";
+import Box from "@mui/material/Box";
 
+import CircularIndeterminate from "../components/CircularIndeterminate";
 import AdministrativePanel from "../layouts/AdministrativePanel";
+import FeedbackSnackbar from "../components/FeedbackSnackbar";
+import BasicTextField from "../components/BasicTextField";
+import DeleteDialog from "../components/DeleteDialog";
+import BasicSelect from "../components/BasicSelect";
+import Cancel from "../components/button/Cancel";
+import BasicCard from "../components/BasicCard";
+import Basic from "../components/button/Basic";
+import Save from "../components/button/Save";
+import { get as getFornecedores } from "../services/fornecedorService";
 import {
   create,
   get,
   updateById,
   deleteById,
 } from "../services/contatoService";
-import Basic from "../components/button/Basic";
-import BasicCard from "../components/BasicCard";
-import DeleteDialog from "../components/DeleteDialog";
-import Save from "../components/button/Save";
-import Cancel from "../components/button/Cancel";
-import FeedbackSnackbar from "../components/FeedbackSnackbar";
-import CircularIndeterminate from "../components/CircularIndeterminate";
-import { get as getFornecedores } from "../services/fornecedorService";
-import BasicTextField from "../components/BasicTextField";
-import BasicSelect from "../components/BasicSelect";
 
 export default function Contatos() {
+  /* contatos */
   const [contatos, setContatos] = React.useState([]);
   const [selectedContato, setSelectedContato] = React.useState(null);
   const [isSearchingAnimation, setIsSearchingAnimation] = React.useState(false);
@@ -54,9 +56,7 @@ export default function Contatos() {
     find();
   }, []);
 
-  /**
-   *
-   */
+  /* searching fornecedores */
   const [fornecedores, setFornecedores] = React.useState([]);
   const [
     isFornecedoresSearchingAnimation,
@@ -83,9 +83,7 @@ export default function Contatos() {
     findFornecedores();
   }, []);
 
-  /**
-   *
-   */
+  /* pagination */
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -98,9 +96,7 @@ export default function Contatos() {
     setPage(0);
   };
 
-  /**
-   *
-   */
+  /* deleting action */
   const [isDeleting, setIsDeleting] = React.useState(false);
   const [isDeletingAnimation, setIsDeletingAnimation] = React.useState(false);
 
@@ -137,9 +133,7 @@ export default function Contatos() {
     }
   };
 
-  /**
-   *
-   */
+  /* init formData */
   const [formData, setFormData] = React.useState({
     nome: "",
     telefone: "",
@@ -153,9 +147,7 @@ export default function Contatos() {
     setFormData({ ...formData, [name]: value });
   };
 
-  /**
-   *
-   */
+  /* setup form modes */
   const [formMode, setFormMode] = React.useState(null);
 
   const handleSubmit = async (event) => {
@@ -176,9 +168,7 @@ export default function Contatos() {
     setSelectedContato(null);
   };
 
-  /**
-   *
-   */
+  /* creating action */
   const [isCreatingAnimation, setIsCreatingAnimation] = React.useState(false);
 
   const handleCreate = async () => {
@@ -202,9 +192,7 @@ export default function Contatos() {
     }
   };
 
-  /**
-   *
-   */
+  /* updating action */
   const [isUpdatingAnimation, setIsUpdatingAnimation] = React.useState(false);
 
   const showUpdate = (contato) => {
@@ -242,12 +230,11 @@ export default function Contatos() {
     }
   };
 
-  /**
-   *
-   */
+  /* snackbar feedback */
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [severitySnackbar, setSeveritySnackbar] = React.useState("warning");
   const [messageSnackbar, setMessageSnackbar] = React.useState("");
+
   const handleOpenSnackbar = (props) => {
     setSeveritySnackbar(props.severity);
     setMessageSnackbar(props.message);
@@ -256,9 +243,6 @@ export default function Contatos() {
 
   return (
     <AdministrativePanel>
-      {/**
-       *
-       */}
       <Stack direction="column" spacing={4}>
         <Box
           component="div"
@@ -340,20 +324,12 @@ export default function Contatos() {
           </>
         )}
       </Stack>
-
-      {/**
-       *
-       */}
       <DeleteDialog
         open={isDeleting}
         onCancel={hideDelete}
         onConfirm={handleDelete}
         isDeletingAnimation={isDeletingAnimation}
       />
-
-      {/**
-       *
-       */}
       <Dialog open={formMode !== null} onClose={hideForm}>
         <Box
           component="form"
@@ -431,10 +407,6 @@ export default function Contatos() {
           </DialogActions>
         </Box>
       </Dialog>
-
-      {/**
-       *
-       */}
       <FeedbackSnackbar
         open={openSnackbar}
         severity={severitySnackbar}

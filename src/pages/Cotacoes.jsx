@@ -1,58 +1,57 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Dialog from "@mui/material/Dialog";
+
+import "dayjs/locale/pt-br";
+import DialogContentText from "@mui/material/DialogContentText";
+import TablePagination from "@mui/material/TablePagination";
+import TableContainer from "@mui/material/TableContainer";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
-import MenuItem from "@mui/material/MenuItem";
-import Stack from "@mui/material/Stack";
-import { styled } from "@mui/material/styles";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import TableFooter from "@mui/material/TableFooter";
-import TablePagination from "@mui/material/TablePagination";
-import Paper from "@mui/material/Paper";
-import IconButton from "@mui/material/IconButton";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import dayjs from "dayjs";
-import "dayjs/locale/pt-br";
-import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
+import DeleteIcon from "@mui/icons-material/Delete";
+import DialogTitle from "@mui/material/DialogTitle";
+import TableFooter from "@mui/material/TableFooter";
+import CardHeader from "@mui/material/CardHeader";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import EditIcon from "@mui/icons-material/Edit";
+import TableBody from "@mui/material/TableBody";
+import TableHead from "@mui/material/TableHead";
+import MenuItem from "@mui/material/MenuItem";
+import TableRow from "@mui/material/TableRow";
+import Dialog from "@mui/material/Dialog";
+import Paper from "@mui/material/Paper";
+import Stack from "@mui/material/Stack";
+import Table from "@mui/material/Table";
+import Card from "@mui/material/Card";
+import Box from "@mui/material/Box";
+import dayjs from "dayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { styled } from "@mui/material/styles";
 
+import CircularIndeterminate from "../components/CircularIndeterminate";
 import AdministrativePanel from "../layouts/AdministrativePanel";
+import FeedbackSnackbar from "../components/FeedbackSnackbar";
+import BasicTextField from "../components/BasicTextField";
+import DeleteDialog from "../components/DeleteDialog";
+import BasicSelect from "../components/BasicSelect";
+import Cancel from "../components/button/Cancel";
+import Basic from "../components/button/Basic";
+import Save from "../components/button/Save";
+import { get as getFornecedores } from "../services/fornecedorService";
+import { get as getProdutos } from "../services/produtoService";
 import {
   create,
   get,
   updateById,
   deleteById,
 } from "../services/cotacaoService";
-import Basic from "../components/button/Basic";
-import DeleteDialog from "../components/DeleteDialog";
-import Save from "../components/button/Save";
-import Cancel from "../components/button/Cancel";
-import FeedbackSnackbar from "../components/FeedbackSnackbar";
-import CircularIndeterminate from "../components/CircularIndeterminate";
-import { get as getFornecedores } from "../services/fornecedorService";
-import { get as getProdutos } from "../services/produtoService";
-import BasicTextField from "../components/BasicTextField";
-import BasicSelect from "../components/BasicSelect";
 
-/**
- *
- */
-dayjs.locale("pt-br"); // use Brazilian Portuguese locale globally
+dayjs.locale("pt-br");
 
+/* table settings */
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.primary.main,
@@ -74,6 +73,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export default function Cotacoes() {
+  /* cotações */
   const [cotacoes, setCotacoes] = React.useState([]);
   const [selectedCotacao, setSelectedCotacao] = React.useState(null);
   const [isSearchingAnimation, setIsSearchingAnimation] = React.useState(false);
@@ -98,9 +98,7 @@ export default function Cotacoes() {
     find();
   }, []);
 
-  /**
-   *
-   */
+  /* searching fornecedores */
   const [fornecedores, setFornecedores] = React.useState([]);
   const [
     isFornecedoresSearchingAnimation,
@@ -127,9 +125,7 @@ export default function Cotacoes() {
     findFornecedores();
   }, []);
 
-  /**
-   *
-   */
+  /* searching produtos */
   const [produtos, setProdutos] = React.useState([]);
   const [isProdutosSearchingAnimation, setIsProdutosSearchingAnimation] =
     React.useState(false);
@@ -154,9 +150,7 @@ export default function Cotacoes() {
     findProdutos();
   }, []);
 
-  /**
-   *
-   */
+  /* table pagination */
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
@@ -173,10 +167,8 @@ export default function Cotacoes() {
     setPage(0);
   };
 
-  /**
-   *
-   */
-  const localDate = (date, withTime = false) => {
+  /* utils */
+  const formatDate = (date, withTime = false) => {
     if (!date) {
       return "not applicable";
     }
@@ -203,9 +195,7 @@ export default function Cotacoes() {
     });
   };
 
-  /**
-   *
-   */
+  /* deleting action */
   const [isDeleting, setIsDeleting] = React.useState(false);
   const [isDeletingAnimation, setIsDeletingAnimation] = React.useState(false);
 
@@ -242,9 +232,7 @@ export default function Cotacoes() {
     }
   };
 
-  /**
-   *
-   */
+  /* init formData */
   const [formData, setFormData] = React.useState({
     validade: null,
     quantidade: "",
@@ -262,9 +250,7 @@ export default function Cotacoes() {
     setFormData({ ...formData, validade: event });
   };
 
-  /**
-   *
-   */
+  /* setup form modes */
   const [formMode, setFormMode] = React.useState(null);
 
   const handleSubmit = async (event) => {
@@ -285,9 +271,7 @@ export default function Cotacoes() {
     setSelectedCotacao(null);
   };
 
-  /**
-   *
-   */
+  /* creating action */
   const [isCreatingAnimation, setIsCreatingAnimation] = React.useState(false);
 
   const handleCreate = async () => {
@@ -311,9 +295,7 @@ export default function Cotacoes() {
     }
   };
 
-  /**
-   *
-   */
+  /* updating action */
   const [isUpdatingAnimation, setIsUpdatingAnimation] = React.useState(false);
 
   const showUpdate = (cotacao) => {
@@ -351,30 +333,27 @@ export default function Cotacoes() {
     }
   };
 
-  /**
-   *
-   */
+  /* snackbar feedback */
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [severitySnackbar, setSeveritySnackbar] = React.useState("warning");
   const [messageSnackbar, setMessageSnackbar] = React.useState("");
+
   const handleOpenSnackbar = (props) => {
     setSeveritySnackbar(props.severity);
     setMessageSnackbar(props.message);
     setOpenSnackbar(true);
   };
 
-  /**
-   *
-   */
+  /* filters */
   const [filteredCotacoes, setFilteredCotacoes] = React.useState([]);
   const [produtoFilter, setProdutoFilter] = React.useState("");
 
   const handleFilterClick = () => {
-    const flterCotacoes = cotacoes.filter((cotacao) =>
+    const filterCotacoes = cotacoes.filter((cotacao) =>
       produtoFilter ? cotacao.produtoId === produtoFilter : true
     );
 
-    setFilteredCotacoes(flterCotacoes);
+    setFilteredCotacoes(filterCotacoes);
   };
 
   React.useEffect(() => {
@@ -383,9 +362,6 @@ export default function Cotacoes() {
 
   return (
     <AdministrativePanel>
-      {/**
-       *
-       */}
       <Stack direction="column" spacing={4}>
         <Box
           component="div"
@@ -477,7 +453,7 @@ export default function Cotacoes() {
                           </Stack>
                         </StyledTableCell>
                         <StyledTableCell align="left">
-                          {localDate(cotacao.createdAt, true) ||
+                          {formatDate(cotacao.createdAt, true) ||
                             "not applicable"}
                         </StyledTableCell>
                         <StyledTableCell align="left">
@@ -487,7 +463,7 @@ export default function Cotacoes() {
                           {cotacao.produto?.nome || "not applicable"}
                         </StyledTableCell>
                         <StyledTableCell align="left">
-                          {localDate(cotacao.validade) || "not applicable"}
+                          {formatDate(cotacao.validade) || "not applicable"}
                         </StyledTableCell>
                         <StyledTableCell align="left">
                           {cotacao.quantidade}
@@ -538,20 +514,12 @@ export default function Cotacoes() {
           </>
         )}
       </Stack>
-
-      {/**
-       *
-       */}
       <DeleteDialog
         open={isDeleting}
         onCancel={hideDelete}
         onConfirm={handleDelete}
         isDeletingAnimation={isDeletingAnimation}
       />
-
-      {/**
-       *
-       */}
       <Dialog open={formMode !== null} onClose={hideForm}>
         <Box
           component="form"
@@ -656,10 +624,6 @@ export default function Cotacoes() {
           </DialogActions>
         </Box>
       </Dialog>
-
-      {/**
-       *
-       */}
       <FeedbackSnackbar
         open={openSnackbar}
         severity={severitySnackbar}

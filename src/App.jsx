@@ -1,9 +1,10 @@
 import Grid from "@mui/material/Grid";
 
-import AdministrativePanel from "./layouts/AdministrativePanel";
 import MainFeaturedPost from "./components/post/MainFeaturedPost";
+import AdministrativePanel from "./layouts/AdministrativePanel";
 import FeaturedPost from "./components/post/FeaturedPost";
 
+/* posts */
 const mainFeaturedPost = {
   title: "What are in-ear monitors?",
   description: "All you need to know about this special category of earphones.",
@@ -36,7 +37,7 @@ const featuredPosts = [
   },
 ];
 
-function App() {
+export default function App() {
   return (
     <AdministrativePanel>
       <MainFeaturedPost post={mainFeaturedPost} />
@@ -48,5 +49,3 @@ function App() {
     </AdministrativePanel>
   );
 }
-
-export default App;

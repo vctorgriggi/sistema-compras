@@ -1,8 +1,8 @@
 :root {
-  /* Fonts */
+  /* fonts */
   --primary-font: "Poppins", sans-serif;
 
-  /*  */
+  /* colatte colors */
   --primary-50: #fffefe;
   --primary-100: #fffefd;
   --primary-200: #fffdfa;
@@ -47,7 +47,7 @@
   --quaternary-800: #191919;
   --quaternary-900: #141414;
 
-  /*  */
+  /* grayscale colors */
   --white-100: #ffffff;
   --white-300: #f7f7f7;
   --gray-100: #e1e1e6;

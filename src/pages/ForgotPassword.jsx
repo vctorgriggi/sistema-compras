@@ -1,39 +1,40 @@
 import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import CssBaseline from "@mui/material/CssBaseline";
-import Link from "@mui/material/Link";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
+import { Link as RouterLink } from "react-router-dom";
+
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import CssBaseline from "@mui/material/CssBaseline";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { Link as RouterLink } from "react-router-dom";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
 import StepLabel from "@mui/material/StepLabel";
+import Stepper from "@mui/material/Stepper";
+import Avatar from "@mui/material/Avatar";
+import Grid from "@mui/material/Grid";
+import Link from "@mui/material/Link";
+import Step from "@mui/material/Step";
+import Box from "@mui/material/Box";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import Copyright from "../components/Copyright";
 import FeedbackSnackbar from "../components/FeedbackSnackbar";
-import { forgotPassword } from "../services/authService";
 import BasicTextField from "../components/BasicTextField";
+import Copyright from "../components/Copyright";
 import Basic from "../components/button/Basic";
+import { forgotPassword } from "../services/authService";
 
 const defaultTheme = createTheme();
 
 export default function ForgotPassword() {
+  /* snackbar feedback */
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [severitySnackbar, setSeveritySnackbar] = React.useState("warning");
   const [messageSnackbar, setMessageSnackbar] = React.useState("");
+
   const handleOpenSnackbar = (props) => {
     setSeveritySnackbar(props.severity);
     setMessageSnackbar(props.message);
     setOpenSnackbar(true);
   };
 
-  /**
-   *
-   */
+  /* submitting action */
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -51,10 +52,9 @@ export default function ForgotPassword() {
     }
   };
 
-  /**
-   *
-   */
+  /* stepper settings */
   const [activeStep, setActiveStep] = React.useState(0);
+
   const steps = ["Insira seu email", "Verificar sua identidade"];
 
   return (
@@ -142,15 +142,7 @@ export default function ForgotPassword() {
             </Grid>
           </Grid>
         </Box>
-
-        {/**
-         *
-         */}
         <Copyright sx={{ mt: 5 }} />
-
-        {/**
-         *
-         */}
         <FeedbackSnackbar
           open={openSnackbar}
           severity={severitySnackbar}

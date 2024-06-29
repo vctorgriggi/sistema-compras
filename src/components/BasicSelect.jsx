@@ -1,13 +1,13 @@
-import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 
 export default function BasicSelect(props) {
   return (
     <FormControl
       required={props.required}
-      margin="dense"
       fullWidth
+      margin="dense"
       variant="standard"
     >
       <InputLabel id={props.labelId || "demo-simple-select-label"}>

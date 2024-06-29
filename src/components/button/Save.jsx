@@ -1,4 +1,5 @@
 import Button from "@mui/material/Button";
+
 import CircularIndeterminate from "../CircularIndeterminate";
 
 export default function Save(props) {
@@ -18,7 +19,7 @@ export default function Save(props) {
       )}
       {!props.isCreatingAnimation &&
         !props.isUpdatingAnimation &&
-        (props.formMode === "update" ? "Salvar mudanças" : "Adicionar à lista")}
+        (props.formMode === "create" ? "Adicionar à lista" : "Salvar mudanças")}
     </Button>
   );
 }
