@@ -136,20 +136,9 @@ export default function ForgotPassword() {
           )}
           <Grid container justifyContent="flex-end">
             <Grid item>
-              {activeStep === 0 && (
-                <Link component={RouterLink} to="/sign-in" variant="body2">
-                  Voltar para entrar
-                </Link>
-              )}
-              {activeStep === 1 && (
-                <Link
-                  component="button"
-                  onClick={() => setActiveStep(0)}
-                  variant="body2"
-                >
-                  Voltar
-                </Link>
-              )}
+              <Link component={RouterLink} to="/sign-in" variant="body2">
+                Voltar para entrar
+              </Link>
             </Grid>
           </Grid>
         </Box>

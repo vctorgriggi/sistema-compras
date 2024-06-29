@@ -21,7 +21,7 @@ import Basic from "../components/button/Basic";
 
 const defaultTheme = createTheme();
 
-export default function SignInSide() {
+export default function SignIn() {
   const [isLoadingAnimation, setIsLoadingAnimation] = React.useState(false);
 
   /**

@@ -103,25 +103,24 @@ export default function AccountMenu() {
           </Typography>
         </MenuItem>
         <Divider />
-        <Link
-          to="/sign-in"
+        <MenuItem
+          component={Link}
+          to="sign-in"
           onClick={() => removeStorageItem("@user:accessToken")}
         >
-          <MenuItem onClick={handleClose}>
-            <ListItemIcon>
-              <Logout />
-            </ListItemIcon>
-            <Typography
-              sx={{
-                color: "var(--gray-400)",
-                fontSize: "1rem",
-                lineHeight: "2rem",
-              }}
-            >
-              Sair
-            </Typography>
-          </MenuItem>
-        </Link>
+          <ListItemIcon>
+            <Logout />
+          </ListItemIcon>
+          <Typography
+            sx={{
+              color: "var(--gray-400)",
+              fontSize: "1rem",
+              lineHeight: "2rem",
+            }}
+          >
+            Sair
+          </Typography>
+        </MenuItem>
       </Menu>
     </React.Fragment>
   );
