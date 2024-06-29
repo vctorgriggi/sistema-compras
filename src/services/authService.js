@@ -1,6 +1,7 @@
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 
 import { auth } from "./firebase";
@@ -33,6 +34,14 @@ export async function signIn(email, password) {
     setStorageItem("@user:accessToken", userCredential.user.accessToken);
 
     return userCredential.user;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function forgotPassword(email) {
+  try {
+    await sendPasswordResetEmail(auth, email);
   } catch (error) {
     throw error;
   }

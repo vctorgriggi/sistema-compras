@@ -81,6 +81,10 @@ export default function SignInSide() {
             backgroundPosition: "left",
           }}
         />
+
+        {/**
+         *
+         */}
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
@@ -138,21 +142,21 @@ export default function SignInSide() {
                 {!isLoadingAnimation && "Sign In"}
               </Basic>
               <Grid container>
-                {/* <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
+                <Grid item xs>
+                  <Link
+                    component={RouterLink}
+                    to="/forgot-password"
+                    variant="body2"
+                  >
+                    Esqueceu sua senha?
                   </Link>
-                </Grid> */}
+                </Grid>
                 <Grid item>
                   <Link component={RouterLink} to="/sign-up" variant="body2">
                     {"Não tem uma conta? Cadastre-se"}
                   </Link>
                 </Grid>
               </Grid>
-
-              {/**
-               *
-               */}
               <Copyright sx={{ mt: 5 }} />
             </Box>
           </Box>

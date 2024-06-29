@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import App from "../App";
 import SignIn from "../pages/SignIn";
 import SignUp from "../pages/SignUp";
+import ForgotPassword from "../pages/ForgotPassword";
 import Produtos from "../pages/Produtos";
 import CategoriasDeProdutos from "../pages/CategoriasDeProdutos";
 import Fornecedores from "../pages/Fornecedores";
@@ -16,6 +17,7 @@ export default function CreateRoutes() {
       <Routes>
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route
           path="/"
           element={
