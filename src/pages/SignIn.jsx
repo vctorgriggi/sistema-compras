@@ -18,11 +18,13 @@ import FeedbackSnackbar from "../components/FeedbackSnackbar";
 import BasicTextField from "../components/BasicTextField";
 import Copyright from "../components/Copyright";
 import Basic from "../components/button/Basic";
+import { AuthenticationContext } from "../context/AuthenticationContext";
 import { signIn } from "../services/authService";
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+  const { setUser } = React.useContext(AuthenticationContext);
   const [isLoadingAnimation, setIsLoadingAnimation] = React.useState(false);
 
   /* snackbar feedback */
@@ -48,6 +50,7 @@ export default function SignIn() {
       setIsLoadingAnimation(true);
       const user = await signIn(data.get("email"), data.get("password"));
       console.log(user);
+      setUser(user);
       navigate("/");
     } catch (error) {
       console.error(`error on sign in: ${error.message}`);
