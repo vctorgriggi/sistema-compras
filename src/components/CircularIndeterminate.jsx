@@ -8,6 +8,7 @@ export default function CircularIndeterminate(props) {
       sx={{
         display: "flex",
         justifyContent: "center",
+        ...props.sx,
       }}
     >
       <CircularProgress size={props.size} color={props.color} />
