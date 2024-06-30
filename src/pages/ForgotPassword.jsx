@@ -92,7 +92,7 @@ export default function ForgotPassword() {
           {activeStep === 0 && (
             <Box
               component="form"
-              noValidate
+              // noValidate
               onSubmit={handleSubmit}
               sx={{ mt: 3 }}
             >
