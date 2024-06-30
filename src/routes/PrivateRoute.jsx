@@ -1,9 +1,14 @@
+import React, { useContext } from "react";
 import { Navigate } from "react-router-dom";
 
-import { checkUserAuthenticated } from "../functions/check-user-authenticated";
+import { AuthenticationContext } from "../context/AuthenticationContext";
 
-export function PrivateRoute({ children }) {
-  const user = checkUserAuthenticated();
+export default function PrivateRoute({ children }) {
+  const { authenticating, user } = useContext(AuthenticationContext);
+
+  if (authenticating) {
+    return <p>Authenticating...</p>;
+  }
 
   return user ? children : <Navigate to="/sign-in" />;
 }

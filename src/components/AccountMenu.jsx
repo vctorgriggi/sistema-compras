@@ -12,9 +12,20 @@ import Menu from "@mui/material/Menu";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
 
+import { AuthenticationContext } from "../context/AuthenticationContext";
 import { removeStorageItem } from "../utils/local-storage";
 
 export default function AccountMenu() {
+  /* AuthContext user handling */
+  const { setUser } = React.useContext(AuthenticationContext);
+
+  const handleLogout = () => {
+    setUser(null);
+    removeStorageItem("@user:accessToken");
+    handleClose();
+  };
+
+  /* mui settings */
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -90,11 +101,7 @@ export default function AccountMenu() {
           </Typography>
         </MenuItem>
         <Divider /> */}
-        <MenuItem
-          component={Link}
-          to="sign-in"
-          onClick={() => removeStorageItem("@user:accessToken")}
-        >
+        <MenuItem component={Link} to="/sign-in" onClick={handleLogout}>
           <ListItemIcon>
             <Logout />
           </ListItemIcon>
