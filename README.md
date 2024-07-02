@@ -30,13 +30,13 @@ Siga os passos abaixo para rodar a aplicação localmente:
 1. **Clone o repositório:**
 
    ```bash
-   git clone https://github.com/seu-usuario/sistema-de-compras.git
+   git clone https://github.com/vctorgriggi/sistema-compras
    ```
 
 2. **Navegue até o diretório do projeto:**
 
    ```bash
-   cd sistema-de-compras
+   cd sistema-compras
    ```
 
 3. **Preencha os dados do Firebase:**
