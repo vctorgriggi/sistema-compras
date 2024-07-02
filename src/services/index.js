@@ -8,5 +8,5 @@ export const index = axios.create({
     "Content-Type": "application/json",
   },
   timeout: 15000,
-  // withCredentials: true, // habilitar se necessário para CORS com credenciais
+  // withCredentials: true, // send cookies when cross-domain requests
 });
