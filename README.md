@@ -56,7 +56,7 @@ Siga os passos abaixo para rodar a aplicação localmente:
 6. **Inicie a aplicação:**
 
    ```bash
-   npm start
+   npm run dev
    ```
 
 7. **Abra o navegador e acesse `http://localhost:5173`.**
