@@ -1,21 +1,6 @@
 ## 🚀 Descrição
 
-O Sistema de Compras é uma aplicação ReactJS que permite aos gestores:
-
-- Gerenciar informações sobre fornecedores
-- Gerenciar contatos de fornecedores
-- Gerenciar produtos e suas categorias
-- Visualizar e gerenciar cotações de produtos
-
-A aplicação requer um login para ser acessada, que é realizado via Firebase.
-
 ## 📋 Funcionalidades
-
-- Login via Firebase
-- Ciclo de gestão de fornecedores
-- Gestão de contatos de fornecedores
-- Gestão de produtos e suas categorias
-- Visualização e gestão de cotações
 
 ## 🛠️ Tecnologias Utilizadas
 
